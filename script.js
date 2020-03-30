@@ -17,3 +17,9 @@ for (let index = 0; index < addExpenses.length; index++) {
 }
 budgetDay = 30;
 console.log(`budgetDay = ${budgetDay}`);
+//---lesson02-----
+money = prompt('Ваш месячный доход?');
+addExpenses = prompt(
+  "Перечислите возможные расходы за рассчитываемый период через запятую"
+);
+
