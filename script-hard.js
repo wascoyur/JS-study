@@ -47,15 +47,15 @@ budgetDay = Math.floor(budgetMonth / 30);
 
 // console.log(`Бюджет на день ${budgetDay}`);
 
-if (budgetDay > 1200) {
-  console.log("У вас высокий уровень дохода");
-} else if (budgetDay <= 1200 && budgetDay > 600) {
-  console.log("У вас средний уровень дохода");
-} else if (budgetDay >= 0 && budgetDay <= 600) {
-  console.log("К сожалению у вас уровень дохода ниже среднего");
-} else {
-  console.log("Что-то пошло не так");
-}
+// if (budgetDay > 1200) {
+//   console.log("У вас высокий уровень дохода");
+// } else if (budgetDay <= 1200 && budgetDay > 600) {
+//   console.log("У вас средний уровень дохода");
+// } else if (budgetDay >= 0 && budgetDay <= 600) {
+//   console.log("К сожалению у вас уровень дохода ниже среднего");
+// } else {
+//   console.log("Что-то пошло не так");
+// }
 
 //==================lesson04===================
 
@@ -73,9 +73,19 @@ function getTargetMonth() {
   /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
   return Math.ceil(mission/accumulatedMonth)
 };
+let getStstusIncome = function(){
+  if(budgetDay < 300){
+    return ('Низкий уровень дохода');
+  }else if(budgetDay <= 800){
+    return ('средний уровень дохода');
+  }else{
+    return ('Высокий уровень дохода');
+  }
+}
 budgetDay = Math.floor(accumulatedMonth/30);
 document.writeln(`Ваш доход в месяц = ${money}<br \/>`);
-document.writeln(`Сумма Ваших расходв в месяц = ${getExpensesMonth()}<br \/>`);
+document.writeln(`Сумма Ваших расходов в месяц = ${getExpensesMonth()}<br \/>`);
 document.writeln(`Категории Ваших расходов = ${addExpenses}<br \/>`);
 document.writeln(`Cрок достижения цели в месяцах = ${getTargetMonth()}<br \/>`);
 document.writeln(`Бюджет на день = ${budgetDay}<br \/>`);
+document.writeln(`Статус дохода = ${getStstusIncome()}<br \/>`);
