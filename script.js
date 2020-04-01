@@ -8,104 +8,71 @@ let money = 2000,/* Месячный доход */
   let monthCount =0; /* за каой период будет достигнута цель */
   let accumulatedMonth =0; /* Накопления за месяц (Доходы минус расходы) */
   let budgetMonth = 0; /* бюджет на месяц (свободные деньги) */
+  let expensesAmount = 0; /*  */
+
 // ------------functions------------
 
-function getExpensesMonth(a, b) {
-  /* возвращает сумму всех обязательных расходов за месяц */
+function calculateExpensesMonth(a, b) {
+  /* считает сумму всех обязательных расходов за месяц */
   result = 0;
   arrCategoryAndExpenses.forEach((value, key) => {
-    result += value;
+    result += Number(value);
   });
   return result;
 };
 function getTargetMonth() {
   /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
-  return Math.ceil(mission/accumulatedMonth)
+   let result = Math.ceil(mission/accumulatedMonth)
+  return result
 };
-
 function getAccumulatedMonth() {
   /* возвращает Накопления за месяц (Доходы минус расходы) */
-  return money - getExpensesMonth();
+  return money - calculateExpensesMonth();
 };
-
 function output(comment ='', value = ''){/* вывод единичных значений */
   document.writeln(`${comment} ${value} <br \/>`);
   console.log(`${comment} ${value}`);
 
 };
 
-function summaryOtputTask(){/* вывод результирующих значений задачи */
-
-}
-
-function checkInput(input, inputType){/* проверка вводимых данных */
-  let result = false;
-  switch(inputType){
-    case 'string':
-      typeof input === inputType? (result = true):null;
+let start = function(inputMsg = "Ваш месячный доход?", hint = 33000) {
+  /* функция старт из задания */
+  let check;
+  let result = 0;
+  do {
+    let tmp = prompt(inputMsg, hint);
+    check = !isNaN(tmp) && !isNaN(parseFloat(tmp));
+    if (check == true) {
+      result = tmp;
       break;
-    case 'number':
-      typeof input === inputType ? (result = true) : null;
-      break;
-  }
+    }
+  } while (true);
   return result;
-}
+};
 
-let start = function(){/* функция старт из задания */
-let  = isNaN(money);
-
-  do{
-    money = prompt('Ваш месячный доход?', 33000);
-    tmp = parseFloat(money);
-    tmp = (parseFloat(money));
-
-  }while(isNaN(parseFloat(money)))
-  return money;
+let getExpensesMonth = function() {/* ввод расходов и их величин */
+  for (let index = 0; index < addExpenses.length; index++) {
+  let msg = 'Введите обязательную статью расходов?';
+  let expenses0 = prompt(msg, addExpenses[index]);/* категория расхода */
+  msg = `Во сколько обойдется ${addExpenses[index]}?`
+  let amount0 = start(msg, 9000); /* величина расхода */
+  arrCategoryAndExpenses.set(expenses0, amount0);
+  };
 }
 
 //-------functions end---------
 
-// console.log(typeof money);
-// console.log(typeof income);
-// console.log(typeof deposit);
-// console.log(addExpenses.length);
-// console.log(`Период равен ${period} месяцев`);
-// console.log(`Цель заработать ${mission} "рублей/долларов/гривен/юани"`);
-
-// for (let index = 0; index < addExpenses.length; index++) {
-//   console.log(addExpenses[index].toLowerCase());
-// }
-// budgetDay = 30;
-// console.log(`budgetDay = ${budgetDay}`);
-
-//---lesson03-----
-
-
-
 money = start();
 addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую без пробелов",addExpenses).split(",");
 deposit = confirm("Есть ли у вас депозит в банке?");
-
-for (let index = 0; index < addExpenses.length; index++) {/* ввод расходов и их величин через цикл */
-
-  let expenses0 = prompt("Введите обязательную статью расходов?", addExpenses[index]);/* категория расхода */
-
-  let amount0 = Number(prompt(`Во сколько обойдется ${addExpenses[index]}?`, 9000)); /* величина расхода */
-
-  arrCategoryAndExpenses.set(expenses0, amount0);
-}
+expensesAmount = getExpensesMonth();
 accumulatedMonth = getAccumulatedMonth();
+budgetMonth = accumulatedMonth;
 budgetDay = Math.floor(accumulatedMonth/30);
-monthCount = Math.ceil(mission/accumulatedMonth);
+targetMonth = getTargetMonth();
 
 //======================lesson05===================
-//otput: typof(money, income, deposit)
-      //- количество категорий расходов
-      //- срок достижения миссии(месяцев)
-      //- миссия(желаемая сума накоплений)
-      //- бюджет на день
-      //- бюджет на месяц
-      //- статус ваших доходов
+
 document.querySelector('#number-lesson').textContent = 'Lesson05';
 document.writeln('<h1>Lesson05</h1>');
 
@@ -115,6 +82,8 @@ if (budgetDay > 1200) {
   output("У вас средний уровень дохода");
 } else if (budgetDay >= 0 && budgetDay <= 600) {
   output("К сожалению у вас уровень дохода ниже среднего");
+} else if (targetMonth < 0) {
+  output ('Цель не будет достигнута.')
 } else {
   output("Что-то пошло не так");
 }
@@ -124,6 +93,6 @@ if (budgetDay > 1200) {
 output('Количество категорий расходов:', arrCategoryAndExpenses.size);
 output('Наименование категорий расходов: ', Array.from(arrCategoryAndExpenses.keys()));
 output('Желаемая сумма накопления: ', mission)
-output('Бюджет на месяц: ', acc)
+output('Бюджет на месяц: ', budgetMonth)
 output('Бюджет на день: ', budgetDay)
-output(`Цель будет достигнута за месяцев: `,monthCount);
+if(targetMonth > 0)output(`Цель будет достигнута за месяцев: `,monthCount);
