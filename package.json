@@ -15,9 +15,6 @@
   "bugs": {
     "url": "https://github.com/wascoyur/JS-study/issues"
   },
-  {
-    "editor.formatOnSave": true,
-    "eslint.autoFixOnSave": true
-  },
+  
   "homepage": "https://github.com/wascoyur/JS-study#readme"
 }
