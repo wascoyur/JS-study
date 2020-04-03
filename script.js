@@ -95,4 +95,4 @@ output('Наименование категорий расходов: ', Array.f
 output('Желаемая сумма накопления: ', mission)
 output('Бюджет на месяц: ', budgetMonth)
 output('Бюджет на день: ', budgetDay)
-if(targetMonth > 0)output(`Цель будет достигнута за месяцев: `,monthCount);
+if(targetMonth > 0)output(`Цель будет достигнута за месяцев: `,targetMonth);
