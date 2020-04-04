@@ -1,14 +1,27 @@
 let money = 2000,/* Месячный доход */
   income = 5000,/* дополнительный доход */
-  addExpenses = ["одежда", "еда", "коммуналка"], /* категориии расходов */
-  arrCategoryAndExpenses = new Map();/* категории расходв с суммами */
+  listExpenses = ["одежда", "еда", "коммуналка"], /* список категориии расходов */
+  arrCategoryAndExpenses = new Map();/* категории расходов с суммами */
   deposit = true,/* наличие банковского вклада */
   mission = 50000,/* цель накопления */
   period = 8;
-  let monthCount =0; /* за каой период будет достигнута цель */
-  let accumulatedMonth =0; /* Накопления за месяц (Доходы минус расходы) */
+  let monthCount =0; /* за какой период будет достигнута цель */
+
   let budgetMonth = 0; /* бюджет на месяц (свободные деньги) */
   let expensesAmount = 0; /*  */
+  let appData = {
+    budget: 0,
+    budgetDay:0,
+    budgetMonth:0,
+    expensesMonth:0,
+    calculateAccumulatedMonth () {/* Накопления за месяц (Доходы минус расходы) */
+      this.budgetMonth = this.budget - calculateExpensesMonth();
+    },
+    calculateBudgetDay(){
+      let accum = this.calculateAccumulatedMonth();
+      this.budgetDay = Math.floor(this.budgetMonth/30)
+    },
+  }
 
 // ------------functions------------
 
@@ -22,13 +35,10 @@ function calculateExpensesMonth(a, b) {
 };
 function getTargetMonth() {
   /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
-   let result = Math.ceil(mission/accumulatedMonth)
+   let result = Math.ceil(mission/appData.calculateAccumulatedMonth)
   return result
 };
-function getAccumulatedMonth() {
-  /* возвращает Накопления за месяц (Доходы минус расходы) */
-  return money - calculateExpensesMonth();
-};
+
 function output(comment ='', value = ''){/* вывод единичных значений */
   document.writeln(`${comment} ${value} <br \/>`);
   console.log(`${comment} ${value}`);
@@ -51,10 +61,10 @@ let start = function(inputMsg = "Ваш месячный доход?", hint = 33
 };
 
 let getExpensesMonth = function() {/* ввод расходов и их величин */
-  for (let index = 0; index < addExpenses.length; index++) {
+  for (let index = 0; index < listExpenses.length; index++) {
   let msg = 'Введите обязательную статью расходов?';
-  let expenses0 = prompt(msg, addExpenses[index]);/* категория расхода */
-  msg = `Во сколько обойдется ${addExpenses[index]}?`
+  let expenses0 = prompt(msg, listExpenses[index]);/* категория расхода */
+  msg = `Во сколько обойдется ${listExpenses[index]}?`
   let amount0 = start(msg, 9000); /* величина расхода */
   arrCategoryAndExpenses.set(expenses0, amount0);
   };
@@ -63,36 +73,38 @@ let getExpensesMonth = function() {/* ввод расходов и их вели
 //-------functions end---------
 
 money = start();
-addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую без пробелов",addExpenses).split(",");
+appData.budget = money;
+listExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую без пробелов", listExpenses).split(",");
 deposit = confirm("Есть ли у вас депозит в банке?");
+appData.calculateAccumulatedMonth();
 expensesAmount = getExpensesMonth();
-accumulatedMonth = getAccumulatedMonth();
-budgetMonth = accumulatedMonth;
-budgetDay = Math.floor(accumulatedMonth/30);
-targetMonth = getTargetMonth();
+// accumulatedMonth = calculateAccumulatedMonth();
+// budgetMonth = accumulatedMonth;
+
+let targetMonth = getTargetMonth();
 
 //======================lesson05===================
 
 document.querySelector('#number-lesson').textContent = 'Lesson05';
 document.writeln('<h1>Lesson05</h1>');
 
-if (budgetDay > 1200) {
+if (appData.calculateBudgetDay() > 1200) {
   output("У вас высокий уровень дохода");
-} else if (budgetDay <= 1200 && budgetDay > 600) {
+} else if (appData.budgetDay <= 1200 && appData.budgetDay > 600) {
   output("У вас средний уровень дохода");
-} else if (budgetDay >= 0 && budgetDay <= 600) {
-  output("К сожалению у вас уровень дохода ниже среднего");
-} else if (targetMonth < 0) {
-  output ('Цель не будет достигнута.')
-} else {
-  output("Что-то пошло не так");
-}
+} else if (appData.budgetDay >= 0 && appData.budgetDay <= 600) {
+         output("К сожалению у вас уровень дохода ниже среднего");
+       } else if (targetMonth < 0) {
+         output("Цель не будет достигнута.");
+       } else {
+         output("Что-то пошло не так");
+       }
 
 
 
 output('Количество категорий расходов:', arrCategoryAndExpenses.size);
 output('Наименование категорий расходов: ', Array.from(arrCategoryAndExpenses.keys()));
 output('Желаемая сумма накопления: ', mission)
-output('Бюджет на месяц: ', budgetMonth)
-output('Бюджет на день: ', budgetDay)
+output("Бюджет на месяц: ", appData.budgetMonth);
+output("Бюджет на день: ", appData.budgetDay);
 if(targetMonth > 0)output(`Цель будет достигнута за месяцев: `,targetMonth);
