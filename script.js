@@ -1,7 +1,4 @@
-let money = 2000,/* Месячный доход */
-  income = 5000,/* дополнительный доход */
-
-  period = 8;
+let money = 2000;/* Месячный доход */
 
   let appData = {
       budget: 0,
@@ -9,7 +6,7 @@ let money = 2000,/* Месячный доход */
       perid:0,
       targetMonth:0,                                        /* за какой период будет достигнута цель */
       mission:50000,                                  /* цель накопления */
-      listExpenses: ["одежда", "еда", "коммуналка"], /* список категориии расходов */
+      listExpenses: ["одежда", "еда", "коммуналка"], /* список категориии расходов дублирующий */
       budgetDay:0,
       budgetMonth:0,                                /* бюджет на месяц (свободные деньги) */
       expensesMonth:0,                              /* суммарые расходы на месяц */
@@ -21,19 +18,30 @@ let money = 2000,/* Месячный доход */
         this.budgetDay = Math.floor(this.budgetMonth/30)
       },
       askExpensesList(){/* ввод расходов и их величин */
-        for (let index = 0; index < this.listExpenses.length; index++) {
+        do {
           let msg = 'Введите обязательную статью расходов? Предлагаемые можно изменить';
-          let expenses0 = prompt(msg, this.listExpenses[index]);/* категория расхода */
-          msg = `Во сколько обойдется ${this.listExpenses[index]}?`
+          let expenses0;
+          do {
+            expenses0 = prompt(msg, this.listExpenses.pop());/* категория расхода */
+          } while (!checkDublicateExpenses(expenses0, 'string'));
+          msg = `Во сколько обойдется ${expenses0}?`
           let amount0 = start(msg, 9000); /* величина расхода */
           this.arrCategoryAndExpenses.set(expenses0, amount0);
-          // let getExpensesMonth = function() {};
-      }
+
+          function checkDublicateExpenses(input, dataType){
+            input = vadidationDataInput(input, dataType);
+            if (input === '') {
+              console.log(`Выход из цикла`);
+              return true;
+            }
+            if (!appData.arrCategoryAndExpenses.has(expenses0)) {
+                return true;
+            }
+            return false;
+          }
+        }while(true)
       },
-      addFirstListExpenses(){ /* первичный ввод категорий расходов */
-        let t = prompt("Перечислите возможные расходы за рассчитываемый период через запятую без пробелов", this.listExpenses).split(",");
-      this.listExpenses = t;
-      },
+
       calculateExpensesMonth() { /* считает сумму всех обязательных расходов за месяц */
       result = 0;
       this.arrCategoryAndExpenses.forEach((value, key) => {
@@ -56,11 +64,17 @@ let money = 2000,/* Месячный доход */
 
 // ------------functions------------
 
-function output(comment ='', value = ''){/* вывод единичных значений */
+function output(comment ='', value = ''){             /* вывод*/
   document.writeln(`${comment} ${value} <br \/>`);
   console.log(`${comment} ${value}`);
 };
-
+function vadidationDataInput (data, targetDataType){
+  result = data.trim();
+  if (typeof(data) === targetDataType){
+    return result;
+  }
+  return false;
+}
 let start = function(inputMsg = "Ваш месячный доход?", hint = 33000) {
   /* функция старт из задания */
   let check;
@@ -80,15 +94,15 @@ let start = function(inputMsg = "Ваш месячный доход?", hint = 33
 
 money = start();
 appData.budget = money;
-appData.addFirstListExpenses();
+// appData.addFirstListExpenses();
 deposit = confirm("Есть ли у вас депозит в банке?");
 appData.askExpensesList();
 appData.calculateAccumulatedMonth();
 appData.calculateAll();
 //======================lesson05===================
 
-document.querySelector('#number-lesson').textContent = 'Lesson05';
-document.writeln('<h1>Lesson05</h1>');
+document.querySelector('#number-lesson').textContent = 'Lesson07';
+document.writeln('<h1>Lesson07</h1>');
 
 if (appData.budgetDay > 1200) {
   output("У вас высокий уровень дохода");
@@ -96,6 +110,8 @@ if (appData.budgetDay > 1200) {
   output("У вас средний уровень дохода");
 } else if (appData.budgetDay >= 0 && appData.budgetDay <= 600) {
          output("К сожалению у вас уровень дохода ниже среднего");
+}else{
+  output('Либо ошибка предоставленных данных, либо надо что-то срочно предпринять')
 }
 
 
@@ -109,4 +125,6 @@ output("Бюджет на день: ", appData.budgetDay);
 
 if(appData.targetMonth > 0) {
   output(`Цель будет достигнута за месяцев: ${appData.targetMonth}`)
+}else{
+  output(`С таким уовнем дохода ${appData.budget} цель не будет достигнута`)
 }
