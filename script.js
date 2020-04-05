@@ -5,11 +5,10 @@ let money = 2000,/* Месячный доход */
 
   let appData = {
       budget: 0,
-      arrCategoryAndExpenses :new Map(),/* категории расходов с суммами */
+      arrCategoryAndExpenses :new Map([["одежда", 9000],[ "еда",13000], ["коммуналка",10000]]),/* категории расходов с суммами */
       perid:0,
       targetMonth:0,                                        /* за какой период будет достигнута цель */
       mission:50000,                                  /* цель накопления */
-      listExpenses: ["одежда", "еда", "коммуналка"], /* список категориии расходов */
       budgetDay:0,
       budgetMonth:0,                                /* бюджет на месяц (свободные деньги) */
       expensesMonth:0,                              /* суммарые расходы на месяц */
@@ -21,7 +20,8 @@ let money = 2000,/* Месячный доход */
         this.budgetDay = Math.floor(this.budgetMonth/30)
       },
       askExpensesList(){/* ввод расходов и их величин */
-        for (let index = 0; index < this.listExpenses.length; index++) {
+
+        for (let index = 0; index < this.arrCategoryAndExpenses.size; index++) {
           let msg = 'Введите обязательную статью расходов? Предлагаемые можно изменить';
           let expenses0 = prompt(msg, this.listExpenses[index]);/* категория расхода */
           msg = `Во сколько обойдется ${this.listExpenses[index]}?`
@@ -30,10 +30,7 @@ let money = 2000,/* Месячный доход */
           // let getExpensesMonth = function() {};
       }
       },
-      addFirstListExpenses(){ /* первичный ввод категорий расходов */
-        let t = prompt("Перечислите возможные расходы за рассчитываемый период через запятую без пробелов", this.listExpenses).split(",");
-      this.listExpenses = t;
-      },
+
       calculateExpensesMonth() { /* считает сумму всех обязательных расходов за месяц */
       result = 0;
       this.arrCategoryAndExpenses.forEach((value, key) => {
@@ -80,7 +77,6 @@ let start = function(inputMsg = "Ваш месячный доход?", hint = 33
 
 money = start();
 appData.budget = money;
-appData.addFirstListExpenses();
 deposit = confirm("Есть ли у вас депозит в банке?");
 appData.askExpensesList();
 appData.calculateAccumulatedMonth();
