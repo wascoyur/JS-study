@@ -5,7 +5,7 @@ let money = 2000,/* Месячный доход */
 
   let appData = {
       budget: 0,
-      arrCategoryAndExpenses :new Map([["одежда", 9000],[ "еда",13000], ["коммуналка",10000]]),/* категории расходов с суммами */
+      arrCategoryAndExpenses :new Map(/* [["одежда", 0],[ "еда",0], ["коммуналка",0]] */),/* категории расходов с суммами */
       perid:0,
       targetMonth:0,                                        /* за какой период будет достигнута цель */
       mission:50000,                                  /* цель накопления */
@@ -20,15 +20,38 @@ let money = 2000,/* Месячный доход */
         this.budgetDay = Math.floor(this.budgetMonth/30)
       },
       askExpensesList(){/* ввод расходов и их величин */
+        let exit = false;
+        let i = 0;
+        do {
+          let categoryExpensesList = Array.from(this.arrCategoryAndExpenses)
+          let msgExp = 'Введите обязательную статью расходов? Предлагаемые можно изменить';
+          let msgAmo ='';
+          let hint ='' /* this.arrCategoryAndExpenses.get('одежда') */;
+          let itemExpenses; /* категория расхода */
+          let itemExpensesAmount;/* величина расхода */
 
-        for (let index = 0; index < this.arrCategoryAndExpenses.size; index++) {
-          let msg = 'Введите обязательную статью расходов? Предлагаемые можно изменить';
-          let expenses0 = prompt(msg, this.listExpenses[index]);/* категория расхода */
-          msg = `Во сколько обойдется ${this.listExpenses[index]}?`
-          let amount0 = start(msg, 9000); /* величина расхода */
-          this.arrCategoryAndExpenses.set(expenses0, amount0);
-          // let getExpensesMonth = function() {};
-      }
+          // if(i < categoryExpensesList.length ){ /* цикл обрабатывает hint */
+          //   hint = categoryExpensesList[i][0];
+          //   i++
+          // }
+          itemExpenses = prompt(msgExp, hint);
+
+          itemExpensesAmount = start(`Во сколько обойдется ${itemExpenses}?`, this.arrCategoryAndExpenses.get(itemExpenses));
+          if (
+            !this.arrCategoryAndExpenses.get(itemExpenses)
+            && (itemExpenses!='') &&
+            !this.arrCategoryAndExpenses.get(itemExpenses) !==itemExpensesAmount
+          ) {
+            this.arrCategoryAndExpenses.set(itemExpenses, itemExpensesAmount);
+          } else {
+            output('Категория с такими значениями уже введена.','');
+            if (itemExpenses == '') {
+              exit = confirm('Хотите закончить?')
+            }
+
+          }
+
+        }while(!exit)
       },
 
       calculateExpensesMonth() { /* считает сумму всех обязательных расходов за месяц */
@@ -81,7 +104,6 @@ deposit = confirm("Есть ли у вас депозит в банке?");
 appData.askExpensesList();
 appData.calculateAccumulatedMonth();
 appData.calculateAll();
-//======================lesson05===================
 
 document.querySelector('#number-lesson').textContent = 'Lesson05';
 document.writeln('<h1>Lesson05</h1>');
