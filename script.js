@@ -12,11 +12,11 @@ let money = 2000,/* Месячный доход */
       budgetDay:0,
       budgetMonth:0,                                /* бюджет на месяц (свободные деньги) */
       expensesMonth:0,                              /* суммарые расходы на месяц */
-      calculateAccumulatedMonth () {/* вычисление Накопления за месяц (Доходы минус расходы) */
+      getBudget () {/* вычисление Накопления за месяц (Доходы минус расходы) */
         this.budgetMonth = this.budget - this.calculateExpensesMonth();
       },
       calculateBudgetDay(){
-        this.calculateAccumulatedMonth();
+        this.getBudget();
         this.budgetDay = Math.floor(this.budgetMonth/30)
       },
       askExpensesList(){/* ввод расходов и их величин */
@@ -61,16 +61,26 @@ let money = 2000,/* Месячный доход */
       });
       return result;
       },
-    calculateTargetMonth() {/* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
-        this.calculateAccumulatedMonth()
+      calculateTargetMonth() {/* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
+        this.getBudget()
         let result = Math.ceil(this.mission/this.budgetMonth);
         this.targetMonth = result;
       },
+      getStatusIncome(){
+          if (appData.budgetDay > 1200) {
+          output("У вас высокий уровень дохода");
+        } else if (appData.budgetDay <= 1200 && appData.budgetDay > 600) {
+          output("У вас средний уровень дохода");
+        } else if (appData.budgetDay >= 0 && appData.budgetDay <= 600) {
+         output("К сожалению у вас уровень дохода ниже среднего");
+        }
+      },
       calculateAll(){
         this.calculateExpensesMonth();
-        this.calculateAccumulatedMonth();
+        this.getBudget();
         this.calculateBudgetDay();
         this.calculateTargetMonth();
+        this.getStatusIncome
       }
   }
 
@@ -102,19 +112,13 @@ money = start();
 appData.budget = money;
 deposit = confirm("Есть ли у вас депозит в банке?");
 appData.askExpensesList();
-appData.calculateAccumulatedMonth();
+appData.getBudget();
 appData.calculateAll();
 
 document.querySelector('#number-lesson').textContent = 'Lesson05';
 document.writeln('<h1>Lesson05</h1>');
 
-if (appData.budgetDay > 1200) {
-  output("У вас высокий уровень дохода");
-} else if (appData.budgetDay <= 1200 && appData.budgetDay > 600) {
-  output("У вас средний уровень дохода");
-} else if (appData.budgetDay >= 0 && appData.budgetDay <= 600) {
-         output("К сожалению у вас уровень дохода ниже среднего");
-}
+
 
 
 
