@@ -84,6 +84,13 @@ let appData = {
   calcSaveMoney(){
 
   },
+  asker(asKey){
+    let msg = inputMsg('mIncom')[0];
+    let hnt = inputMsg('mIncom')[1];
+    let answType = inputMsg('mIncom')[2];
+    let answer = prompt(msg, hnt);
+    
+  },
   calculateAll() {
     this.calculateExpensesMonth();
     this.getBudget();
@@ -148,7 +155,7 @@ let start = function (inputMsg = "Ваш месячный доход?", hint = 3
 
 //-------functions end---------
 
-money = start();
+// money = start();
 appData.budget = money;
 deposit = confirm("Есть ли у вас депозит в банке?");
 appData.askExpensesList();
