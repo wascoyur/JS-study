@@ -101,7 +101,36 @@ function output(comment = "", value = "") {
   console.log(`${comment} ${value}`);
 }
 
-let start = function (inputMsg = "Ваш месячный доход?", hint = 33000) {
+function inputMsg(key){
+    //[0:Msg, 1:[hint], 2:target type]
+  let identifikators = new Map([
+    [mIncom , ['Укажите размер основного дохода', 33000, 'number']],
+    [addIncom, ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'string']],
+    [expenses, ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'string']],
+    [amountExpenses, ['сумму можно изменить, либо оставить как есть', [7000, 8000, 10000],'number']],
+    [errorMsg, ['Неверные данные, попробуйте еще раз', [0,0,0],'']],
+  ])
+  return identifikators.get(key);
+}
+let start2Validation = function(data, type){/* только проверка введеных данных */
+  processData = data.trim();
+  let check = false;
+  switch(type){
+    case 'string':
+        processData === data? (check = true): null;
+      break;
+    case 'number':
+        check = !isNaN(processData) && !isNaN(parseFloat(data));
+      break;
+    case 'array':
+      let tmp = processData.split(',');
+      check = typeof(tmp) === 'array';
+      break;
+  }
+
+  return check;
+}
+let start = function (inputMsg = "Ваш месячный доход?", hint = 33000, key ='') {
   //TODO вывести функцию ввода данных в другое место. Ввод и валидация - разные функции
   /* функция старт из задания */
   let check;
