@@ -1,12 +1,11 @@
-let money = 2000,/* Месячный доход */
-  income = 5000,/* дополнительный доход */
-
-  period = 8;
+let money = 2000;/* Месячный доход */
 
   let appData = {
       budget: 0,
+      income : 5000,/* дополнительный доход */
       arrCategoryAndExpenses :new Map(/* [["одежда", 0],[ "еда",0], ["коммуналка",0]] */),/* категории расходов с суммами */
-      perid:0,
+      perid: 0,
+      period : 8,
       targetMonth:0,                                        /* за какой период будет достигнута цель */
       mission:50000,                                  /* цель накопления */
       budgetDay:0,
@@ -118,11 +117,22 @@ appData.calculateAll();
 document.querySelector('#number-lesson').textContent = 'Lesson05';
 document.writeln('<h1>Lesson05</h1>');
 
-
-
-
-
-
+const value = (object) =>{
+  let str ='';
+  (Object.keys(object)).map((el)=>{
+    let type = typeof(object[el])
+    if (object[el] == '' ) {
+      return;
+    }
+    if (type == 'function') {
+      return (str += `параметр ${el} -  метод` + "\n");
+    }
+      return str +=`параметр ${el} имеет значение ${object[el]}`;
+  })
+  // return str;
+}
+output('Наша программа включает в себя данные:', '')
+output('',value(appData));
 output('Количество категорий расходов:', appData.arrCategoryAndExpenses.size);
 output('Наименование категорий расходов: ', Array.from(appData.arrCategoryAndExpenses.keys()));
 output('Желаемая сумма накопления: ', appData.mission)
