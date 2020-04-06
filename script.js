@@ -2,7 +2,7 @@ let money = 2000; /* Месячный доход */
 
 let appData = {
   budget: 0,
-  income: newMap() ,              /* дополнительный доход ( вид дохода : размер доход )*/
+  income: new Map() ,              /* дополнительный доход ( вид дохода : размер доход )*/
   arrCategoryAndExpenses: new Map(/* [["одежда", 0],[ "еда",0], ["коммуналка",0]] */) /* категории расходов с суммами */,
   perid: 0,
   period: 8,
@@ -85,12 +85,30 @@ let appData = {
 
   },
   asker(asKey){
-    let msg = inputMsg('mIncom')[0];
-    let hnt = inputMsg('mIncom')[1];
-    let answType = inputMsg('mIncom')[2];
-    let answer = prompt(msg, hnt);
-    
+    let msg, hnt, answType, answer, result;
+
+    do {
+      msg = inputMsg('mIncom')[0];
+      hnt = inputMsg('mIncom')[1];
+      answType = inputMsg('mIncom')[2];
+      answer = prompt(msg, hnt);
+      if(start2Validation(answer, answType)){
+        result = answer.trim();
+        switch(answType){
+          case 'string':
+          break
+          case 'number':
+            result = Number(result);
+          break
+          case 'array':
+            result = result.split(',');
+          break
+        }
+        return result;
+      }
+    } while (true)
   },
+
   calculateAll() {
     this.calculateExpensesMonth();
     this.getBudget();
@@ -111,23 +129,23 @@ function output(comment = "", value = "") {
 function inputMsg(key){
     //[0:Msg, 1:[hint], 2:target type]
   let identifikators = new Map([
-    [mIncom , ['Укажите размер основного дохода', 33000, 'number']],
-    [addIncom, ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'string']],
-    [expenses, ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'string']],
-    [amountExpenses, ['сумму можно изменить, либо оставить как есть', [7000, 8000, 10000],'number']],
-    [errorMsg, ['Неверные данные, попробуйте еще раз', [0,0,0],'']],
+    ['mIncom' , ['Укажите размер основного дохода', 33000, 'number']],
+    ['addIncom', ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'string']],
+    ['expenses', ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'string']],
+    ['amountExpenses', ['сумму можно изменить, либо оставить как есть', [7000, 8000, 10000],'number']],
+    ['errorMsg', ['Неверные данные, попробуйте еще раз', [0,0,0],'']],
   ])
   return identifikators.get(key);
 }
-let start2Validation = function(data, type){/* только проверка введеных данных */
-  processData = data.trim();
+function start2Validation(data, type){/* только проверка введеных данных */
+  let processData = data.trim();
   let check = false;
   switch(type){
     case 'string':
         processData === data? (check = true): null;
       break;
     case 'number':
-        check = !isNaN(processData) && !isNaN(parseFloat(data));
+        check = (!isNaN(processData)) && (!isNaN(parseFloat(data)));
       break;
     case 'array':
       let tmp = processData.split(',');
@@ -156,7 +174,9 @@ let start = function (inputMsg = "Ваш месячный доход?", hint = 3
 //-------functions end---------
 
 // money = start();
-appData.budget = money;
+appData.budget = appData.asker('mIncom');
+appData.income = appData.asker();
+// appData.budget = money;
 deposit = confirm("Есть ли у вас депозит в банке?");
 appData.askExpensesList();
 appData.getBudget();
