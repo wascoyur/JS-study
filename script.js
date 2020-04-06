@@ -125,9 +125,11 @@ const value = (object) =>{
       return;
     }
     if (type == 'function') {
-      return (str += `параметр ${el} -  метод` + "\n");
+      output(`ключ ${el} -  `, `метод`);
+    }else{
+      output(`ключ ${el} имеет значение ${object[el]}`)
     }
-      return str +=`параметр ${el} имеет значение ${object[el]}`;
+
   })
   // return str;
 }
