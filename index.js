@@ -186,8 +186,6 @@ expenses.forEach((elm, index) =>{
 appData.getBudget();
 appData.calculateAll();
 
-document.querySelector("#number-lesson").textContent = "Lesson05";
-document.writeln("<h1>Lesson</h1>");
 
 const value = (object) => {
   let str = "";
