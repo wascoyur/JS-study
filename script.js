@@ -11,8 +11,8 @@ let appData = {
   budgetDay: 0,
   budgetMonth: 0 /* бюджет на месяц (свободные деньги) */,
   expensesMonth: 0 /* суммарые расходы на месяц */,
-  deposit: false,
-  deposiSize : 0,
+  depositProcent: 0,/* ставка депозита */
+  deposiSize : 0, /* размер депозита */
   persentOfDeposut: 7,
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
@@ -84,11 +84,11 @@ let appData = {
   calcSaveMoney(){
 
   },
-  asker(asKey){
+  asker(asKey, ad){
     let msg, hnt, answType, answer, result;
 
     do {
-      msg = inputMsg(asKey)[0];
+      msg = inputMsg(asKey, ad)[0];
       hnt = inputMsg(asKey)[1];
       answType = inputMsg(asKey)[2];
       answer = prompt(msg, hnt);
@@ -126,14 +126,17 @@ function output(comment = "", value = "") {
   console.log(`${comment} ${value}`);
 }
 
-function inputMsg(key){
+function inputMsg(key, adds){
     //[0:Msg, 1:[hint], 2:target type]
   let identifikators = new Map([
     ['mIncom' , ['Укажите размер основного дохода', 33000, 'number']],
     ['addIncom', ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'array']],
+    ['addIncomSize', [`Укажите размеры дополнительного дохода: "${adds}"`, 11500, 'number']],
     ['expenses', ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'string']],
     ['amountExpenses', ['сумму можно изменить, либо оставить как есть', [7000, 8000, 10000],'number']],
     ['errorMsg', ['Неверные данные, попробуйте еще раз', [0,0,0],'']],
+    ['addSizeDeposit', ['Введите размер депозита, если пусто, значит отсутсвует', [1000],'number']],
+    ['addProcentDeposit', ['Введите ставку депозита', [7],'number']],
   ])
   return identifikators.get(key);
 }
@@ -184,15 +187,23 @@ let start = function (inputMsg = "Ваш месячный доход?", hint = 3
 
 // money = start();
 appData.budget = appData.asker('mIncom');
-appData.income = appData.asker('addIncom');
-// appData.budget = money;
-deposit = confirm("Есть ли у вас депозит в банке?");
+let addIncom = appData.asker('addIncom');
+
+addIncom.forEach((el, index)=>{
+  appData.income.set(el, appData.asker("addIncomSize", addIncom[index]));
+})
+appData.deposiSize = appData.asker("addSizeDeposit");
+if (appData.deposiSize > 0) {
+  appData.depositProcent = appData.asker("addProcentDeposit");
+}
+
+appData.e
 appData.askExpensesList();
 appData.getBudget();
 appData.calculateAll();
 
 document.querySelector("#number-lesson").textContent = "Lesson05";
-document.writeln("<h1>Lesson05</h1>");
+document.writeln("<h1>Lesson</h1>");
 
 const value = (object) => {
   let str = "";
