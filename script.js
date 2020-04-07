@@ -166,21 +166,21 @@ function start2Validation(data, type){/* только проверка введ�
 
   return check;
 }
-let start = function (inputMsg = "Ваш месячный доход?", hint = 33000, key ='') {
-  //TODO вывести функцию ввода данных в другое место. Ввод и валидация - разные функции
-  /* функция старт из задания */
-  let check;
-  let result = 0;
-  do {
-    let tmp = prompt(inputMsg, hint);
-    check = !isNaN(tmp) && !isNaN(parseFloat(tmp));
-    if (check == true) {
-      result = tmp;
-      break;
-    }
-  } while (true);
-  return result;
-};
+// let start = function (inputMsg = "Ваш месячный доход?", hint = 33000, key ='') {
+//   //TODO вывести функцию ввода данных в другое место. Ввод и валидация - разные функции
+//   /* функция старт из задания */
+//   let check;
+//   let result = 0;
+//   do {
+//     let tmp = prompt(inputMsg, hint);
+//     check = !isNaN(tmp) && !isNaN(parseFloat(tmp));
+//     if (check == true) {
+//       result = tmp;
+//       break;
+//     }
+//   } while (true);
+//   return result;
+// };
 
 //-------functions end---------
 
