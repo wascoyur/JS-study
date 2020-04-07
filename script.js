@@ -166,25 +166,7 @@ function start2Validation(data, type){/* только проверка введ�
 
   return check;
 }
-// let start = function (inputMsg = "Ваш месячный доход?", hint = 33000, key ='') {
-//   //TODO вывести функцию ввода данных в другое место. Ввод и валидация - разные функции
-//   /* функция старт из задания */
-//   let check;
-//   let result = 0;
-//   do {
-//     let tmp = prompt(inputMsg, hint);
-//     check = !isNaN(tmp) && !isNaN(parseFloat(tmp));
-//     if (check == true) {
-//       result = tmp;
-//       break;
-//     }
-//   } while (true);
-//   return result;
-// };
 
-//-------functions end---------
-
-// money = start();
 appData.budget = appData.asker('mIncom');
 let addIncom = appData.asker('addIncom'); /* ввод категорий дополнильных доходов */
 
@@ -201,7 +183,6 @@ let expenses = appData.asker('expenses');
 expenses.forEach((elm, index) =>{
   appData.arrCategoryAndExpenses.set(elm, appData.asker('amountExpenses', expenses[index]));
 })
-// appData.askExpensesList();
 appData.getBudget();
 appData.calculateAll();
 
@@ -228,7 +209,7 @@ output("", value(appData));
 output("Количество категорий расходов:", appData.arrCategoryAndExpenses.size);
 output(
   "Наименование категорий расходов: ",
-  Array.from(appData.arrCategoryAndExpenses.keys())
+  Array.from(appData.arrCategoryAndExpenses.keys()).join(", ")
 );
 output("Желаемая сумма накопления: ", appData.mission);
 output("Бюджет на месяц: ", appData.budgetMonth);
