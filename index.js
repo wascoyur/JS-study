@@ -216,3 +216,6 @@ output("Бюджет на день: ", appData.budgetDay);
 if (appData.targetMonth > 0) {
   output(`Цель будет достигнута за месяцев: ${appData.targetMonth}`);
 }
+
+let buttonStart = document.querySelector('#start');
+let buttonIncomPlus = document.querySelector()
