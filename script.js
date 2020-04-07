@@ -86,7 +86,6 @@ let appData = {
   },
   asker(asKey, ad){
     let msg, hnt, answType, answer, result;
-
     do {
       msg = inputMsg(asKey, ad)[0];
       hnt = inputMsg(asKey)[1];
@@ -132,8 +131,8 @@ function inputMsg(key, adds){
     ['mIncom' , ['Укажите размер основного дохода', 33000, 'number']],
     ['addIncom', ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'array']],
     ['addIncomSize', [`Укажите размеры дополнительного дохода: "${adds}"`, 11500, 'number']],
-    ['expenses', ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'string']],
-    ['amountExpenses', ['сумму можно изменить, либо оставить как есть', [7000, 8000, 10000],'number']],
+    ['expenses', ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'array']],
+    ['amountExpenses', [`Во сколько обойдется "${adds}"? `, [7000, 8000, 10000],'number']],
     ['errorMsg', ['Неверные данные, попробуйте еще раз', [0,0,0],'']],
     ['addSizeDeposit', ['Введите размер депозита, если пусто, значит отсутсвует', [1000],'number']],
     ['addProcentDeposit', ['Введите ставку депозита', [7],'number']],
@@ -187,18 +186,22 @@ let start = function (inputMsg = "Ваш месячный доход?", hint = 3
 
 // money = start();
 appData.budget = appData.asker('mIncom');
-let addIncom = appData.asker('addIncom');
+let addIncom = appData.asker('addIncom'); /* ввод категорий дополнильных доходов */
 
-addIncom.forEach((el, index)=>{
+addIncom.forEach((el, index)=>{           /* ввод размеров дополнительных доходов */
   appData.income.set(el, appData.asker("addIncomSize", addIncom[index]));
 })
-appData.deposiSize = appData.asker("addSizeDeposit");
+
+appData.deposiSize = appData.asker("addSizeDeposit"); /* ввод данных депозита */
 if (appData.deposiSize > 0) {
   appData.depositProcent = appData.asker("addProcentDeposit");
 }
 
-appData.e
-appData.askExpensesList();
+let expenses = appData.asker('expenses');
+expenses.forEach((elm, index) =>{
+  appData.arrCategoryAndExpenses.set(elm, appData.asker('amountExpenses', expenses[index]));
+})
+// appData.askExpensesList();
 appData.getBudget();
 appData.calculateAll();
 
