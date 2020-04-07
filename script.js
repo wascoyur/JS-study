@@ -88,9 +88,9 @@ let appData = {
     let msg, hnt, answType, answer, result;
 
     do {
-      msg = inputMsg('mIncom')[0];
-      hnt = inputMsg('mIncom')[1];
-      answType = inputMsg('mIncom')[2];
+      msg = inputMsg(asKey)[0];
+      hnt = inputMsg(asKey)[1];
+      answType = inputMsg(asKey)[2];
       answer = prompt(msg, hnt);
       if(start2Validation(answer, answType)){
         result = answer.trim();
@@ -130,7 +130,7 @@ function inputMsg(key){
     //[0:Msg, 1:[hint], 2:target type]
   let identifikators = new Map([
     ['mIncom' , ['Укажите размер основного дохода', 33000, 'number']],
-    ['addIncom', ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'string']],
+    ['addIncom', ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'array']],
     ['expenses', ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'string']],
     ['amountExpenses', ['сумму можно изменить, либо оставить как есть', [7000, 8000, 10000],'number']],
     ['errorMsg', ['Неверные данные, попробуйте еще раз', [0,0,0],'']],
@@ -142,14 +142,23 @@ function start2Validation(data, type){/* только проверка введ�
   let check = false;
   switch(type){
     case 'string':
-        processData === data? (check = true): null;
+        (processData === data) && (processData!= '')? (check = true): null;
       break;
     case 'number':
         check = (!isNaN(processData)) && (!isNaN(parseFloat(data)));
       break;
     case 'array':
-      let tmp = processData.split(',');
-      check = typeof(tmp) === 'array';
+      let arr = processData.split(',');
+      let clearArr = arr.map((el)=>{
+        return el.trim();
+      });
+      let tmpCheck = (clearArr.reduce((result, current, index)=>{
+        result = true;
+        return result = start2Validation(current, 'string') && result ;
+          }
+        )
+      )
+      check = tmpCheck && clearArr instanceof Array;
       break;
   }
 
@@ -175,7 +184,7 @@ let start = function (inputMsg = "Ваш месячный доход?", hint = 3
 
 // money = start();
 appData.budget = appData.asker('mIncom');
-appData.income = appData.asker();
+appData.income = appData.asker('addIncom');
 // appData.budget = money;
 deposit = confirm("Есть ли у вас депозит в банке?");
 appData.askExpensesList();
