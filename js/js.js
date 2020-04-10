@@ -1,5 +1,25 @@
 let listBook = document.querySelectorAll('.books');
 let books = document.querySelectorAll('.book');
-books[0].before(books[1]);
-books[4].after(books[0]);
-console.log('books[4].textContent: ', books[4].textContent);
+listBook[0].prepend(books[1]);
+listBook[0].append(books[2]);
+books[4].after(books[3]);
+document.body.style.backgroundImage = "url('./image/adv.jpg')";
+let adv = document.querySelector('.adv');
+adv.remove();
+books.forEach((el, i) =>{
+    let parent = el.querySelector('a');
+    let item = el.querySelector('h2 a').innerHTML;
+     item = el.outerHTML;
+    if (item.includes ("Книга 3. this и Пропопипы Объектов")){
+        // el.innerHTML = 'Книга 3. this и Прототипы Объектов';
+        let strHtml = el.textContent;
+        let strHtmlEdit = strHtml.replace('Пропопипы', 'Прототипы');
+        parent.replaceWith('Пропопипы', 'Прототипы');
+    }
+    console.log(item);
+})
+
+// Array.from(listBook).forEach((el) => {
+
+//     console.dir(el.textContent.);
+// })
