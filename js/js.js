@@ -9,10 +9,10 @@ adv.remove();
 
 books.forEach((el, i) =>{
     let parent = el.querySelector('a');
-    let nodeArr = Array.from(el);
+    let nodeArr = Array.from(el.querySelector('a'));
     console.log('nodeArr: ', nodeArr);
     let item = el.querySelector('h2 a')/* .innerHTML */;
-    if (item.innerHTML.includes ("Книга 3. this и Пропопипы Объектов")){
+    if (nodeArr.length ()){
         // el.innerHTML = 'Книга 3. this и Прототипы Объектов';
         let ul = item.toString()
 
