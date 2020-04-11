@@ -14,6 +14,21 @@ let appData = {
   depositProcent: 0,/* ставка депозита */
   deposiSize : 0, /* размер депозита */
   persentOfDeposut: 7,
+  buttonStart : document.querySelector("#start"),
+  buttonIncomPlus : document.querySelectorAll("button")[0],
+  buttonExpensAdd : document.querySelectorAll("button")[1],
+  depositCheck : document.querySelector("#deposit-check"),
+  additionalIncomeItem0 : document.querySelectorAll(".additional_income-item")[0],
+  additionalIncomeItem1 : document.querySelectorAll(".additional_income-item")[1],
+  resultTotalBudgetMonthValue : document.querySelector(".budget_month-value"),
+  resultTotalBudgetDayValue : document.querySelector(".budget_day-value"),
+  resultTotaExpensesMonthValue : document.querySelector(".expenses_month-value"),
+  resultTotalAdditionalIncomeValue : document.querySelector(".additional_income-value"),
+  resultTotalAdditionalExpensesValue : document.querySelector(".additional_expenses-value"),
+  resultTotalIncomePeriodValue : document.querySelector(".income_period-value"),
+  resultTotalTargetMonthValue : document.querySelector(".target_month-value"),
+  periodSelect : document.querySelector(".period-select"),
+
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
     this.budgetMonth = this.budget - this.calculateExpensesMonth();
@@ -21,38 +36,6 @@ let appData = {
   calculateBudgetDay() {
     this.getBudget();
     this.budgetDay = Math.floor(this.budgetMonth / 30);
-  },
-  askExpensesList() {//TODO разбить метод на 2 модуля: ввод данных и проверка
-    /* ввод расходов и их величин */
-    let exit = false;
-    let i = 0;
-    do {
-      let msgExp =
-        "Введите обязательную статью расходов? Предлагаемые можно изменить";
-      let msgAmo = "";
-      let hint = ""; /* подсказка для облегчения ввода */
-      let itemExpenses; /* категория расхода */
-      let itemExpensesAmount; /* величина расхода */
-
-      itemExpenses = prompt(msgExp, hint);
-
-      itemExpensesAmount = start(
-        `Во сколько обойдется ${itemExpenses}?`,
-        this.arrCategoryAndExpenses.get(itemExpenses)
-      );
-      if (
-        !this.arrCategoryAndExpenses.get(itemExpenses) &&
-        itemExpenses != "" &&
-        !this.arrCategoryAndExpenses.get(itemExpenses) !== itemExpensesAmount
-      ) {
-        this.arrCategoryAndExpenses.set(itemExpenses, itemExpensesAmount);
-      } else {
-        output("Категория с такими значениями уже введена.", "");
-        if (itemExpenses == "") {
-          exit = confirm("Хотите закончить?");
-        }
-      }
-    } while (!exit);
   },
 
   calculateExpensesMonth() {
@@ -216,30 +199,3 @@ output("Бюджет на день: ", appData.budgetDay);
 if (appData.targetMonth > 0) {
   output(`Цель будет достигнута за месяцев: ${appData.targetMonth}`);
 }
-
-let buttonStart = document.querySelector("#start");
-let buttonIncomPlus = document.querySelectorAll("button")[0];
-let buttonExpensAdd = document.querySelectorAll("button")[1];
-let depositCheck = document.querySelector("#deposit-check");
-let additionalIncomeItem0 = document.querySelectorAll(
-  ".additional_income-item"
-)[0];
-let additionalIncomeItem1 = document.querySelectorAll(
-  ".additional_income-item"
-)[1];
-let resultTotalBudgetMonthValue = document.querySelector(".budget_month-value");
-let resultTotalBudgetDayValue = document.querySelector(".budget_day-value");
-let resultTotaExpensesMonthValue = document.querySelector(
-  ".expenses_month-value"
-);
-let resultTotalAdditionalIncomeValue = document.querySelector(
-  ".additional_income-value"
-);
-let resultTotalAdditionalExpensesValue = document.querySelector(
-  ".additional_expenses-value"
-);
-let resultTotalIncomePeriodValue = document.querySelector(
-  ".income_period-value"
-);
-let resultTotalTargetMonthValue = document.querySelector(".target_month-value");
-let periodSelect = document.querySelector(".period-select");
