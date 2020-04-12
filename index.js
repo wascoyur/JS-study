@@ -1,4 +1,30 @@
 let money = 2000; /* Месячный доход */
+let buttonStart = document.querySelector("#start");
+let buttonIncomPlus = document.querySelectorAll("button")[0];
+let buttonExpensAdd = document.querySelectorAll("button")[1];
+let depositCheck = document.querySelector("#deposit-check");
+let additionalIncomeItem0 = document.querySelectorAll(
+  ".additional_income-item"
+)[0];
+let additionalIncomeItem1 = document.querySelectorAll(
+  ".additional_income-item"
+)[1];
+let resultTotalBudgetMonthValue = document.querySelector(".budget_month-value");
+let resultTotalBudgetDayValue = document.querySelector(".budget_day-value");
+let resultTotaExpensesMonthValue = document.querySelector(
+  ".expenses_month-value"
+);
+let resultTotalAdditionalIncomeValue = document.querySelector(
+  ".additional_income-value"
+);
+let resultTotalAdditionalExpensesValue = document.querySelector(
+  ".additional_expenses-value"
+);
+let resultTotalIncomePeriodValue = document.querySelector(
+  ".income_period-value"
+);
+let resultTotalTargetMonthValue = document.querySelector(".target_month-value");
+let periodSelect = document.querySelector(".period-select");
 
 let appData = {
   budget: 0,
@@ -14,20 +40,7 @@ let appData = {
   depositProcent: 0,/* ставка депозита */
   deposiSize : 0, /* размер депозита */
   persentOfDeposut: 7,
-  buttonStart : document.querySelector("#start"),
-  buttonIncomPlus : document.querySelectorAll("button")[0],
-  buttonExpensAdd : document.querySelectorAll("button")[1],
-  depositCheck : document.querySelector("#deposit-check"),
-  additionalIncomeItem0 : document.querySelectorAll(".additional_income-item")[0],
-  additionalIncomeItem1 : document.querySelectorAll(".additional_income-item")[1],
-  resultTotalBudgetMonthValue : document.querySelector(".budget_month-value"),
-  resultTotalBudgetDayValue : document.querySelector(".budget_day-value"),
-  resultTotaExpensesMonthValue : document.querySelector(".expenses_month-value"),
-  resultTotalAdditionalIncomeValue : document.querySelector(".additional_income-value"),
-  resultTotalAdditionalExpensesValue : document.querySelector(".additional_expenses-value"),
-  resultTotalIncomePeriodValue : document.querySelector(".income_period-value"),
-  resultTotalTargetMonthValue : document.querySelector(".target_month-value"),
-  periodSelect : document.querySelector(".period-select"),
+
 
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
@@ -90,7 +103,9 @@ let appData = {
       }
     } while (true)
   },
+  start(){
 
+  },
   calculateAll() {
     this.calculateExpensesMonth();
     this.getBudget();
@@ -149,6 +164,9 @@ function start2Validation(data, type){/* только проверка введ�
 
   return check;
 }
+
+start.addEventListener('click', appData.start);
+
 
 appData.budget = appData.asker('mIncom');
 let addIncom = appData.asker('addIncom'); /* ввод категорий дополнильных доходов */
