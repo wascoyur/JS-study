@@ -1,35 +1,27 @@
-let money = 2000; /* Месячный доход */
+let money = 2000;
 let buttonStart = document.querySelector("#start");
+let saylaryAmount = document.querySelector('.salary-amount');
+// let btnPlusExpensesAdd = document.querySelector(".btn_plus expenses_add");
 let buttonIncomPlus = document.querySelectorAll("button")[0];
 let buttonExpensAdd = document.querySelectorAll("button")[1];
 let depositCheck = document.querySelector("#deposit-check");
-let additionalIncomeItem0 = document.querySelectorAll(
-  ".additional_income-item"
-)[0];
-let additionalIncomeItem1 = document.querySelectorAll(
-  ".additional_income-item"
-)[1];
-let resultTotalBudgetMonthValue = document.querySelector(".budget_month-value");
-let resultTotalBudgetDayValue = document.querySelector(".budget_day-value");
-let resultTotaExpensesMonthValue = document.querySelector(
-  ".expenses_month-value"
-);
-let resultTotalAdditionalIncomeValue = document.querySelector(
-  ".additional_income-value"
-);
-let resultTotalAdditionalExpensesValue = document.querySelector(
-  ".additional_expenses-value"
-);
-let resultTotalIncomePeriodValue = document.querySelector(
-  ".income_period-value"
-);
+let additionalIncomeItem0 = document.querySelectorAll(".additional_income-item")[0];
+let additionalIncomeItem1 = document.querySelectorAll(".additional_income-item")[1];
+let budgetMonthValue = document.querySelector(".budget_month-value");
+let budgetDayValue = document.querySelector(".budget_day-value");
+let expensesMonthValue = document.querySelector(".expenses_month-value");
+let additionalIncomeValue = document.querySelector(".additional_income-value");
+let resultTotalAdditionalExpensesValue = document.querySelector(".additional_expenses-value");
+let resultTotalIncomePeriodValue = document.querySelector(".income_period-value");
 let resultTotalTargetMonthValue = document.querySelector(".target_month-value");
 let periodSelect = document.querySelector(".period-select");
+let additionalExpensesItem = document.querySelector(".additional_expenses-item");
 
 let appData = {
-  budget: 0,
+  budget: 0,/* Месячный доход */
   income: new Map() ,              /* дополнительный доход ( вид дохода : размер доход )*/
-  arrCategoryAndExpenses: new Map(/* [["одежда", 0],[ "еда",0], ["коммуналка",0]] */) /* категории расходов с суммами */,
+  arrExpenses: new Map([["одежда", 2345],[ "еда",5432], ["коммуналка",3765]]) /* категории расходов с суммами */,
+  addExpenses: new Map(),
   perid: 0,
   period: 8,
   targetMonth: 0 /* за какой период будет достигнута цель */,
@@ -54,9 +46,10 @@ let appData = {
   calculateExpensesMonth() {
     /* считает сумму всех обязательных расходов за месяц */
     result = 0;
-    this.arrCategoryAndExpenses.forEach((value, key) => {
+    appData.arrExpenses.forEach((value, key) => {
       result += Number(value);
     });
+    appData.expensesMonth = result;
     return result;
   },
   calculateTargetMonth() {
@@ -74,12 +67,7 @@ let appData = {
       output("К сожалению у вас уровень дохода ниже среднего");
     }
   },
-  getInfoDeposit(){             /* запрос данных о наличии депозита и его условиях */
 
-  },
-  calcSaveMoney(){
-
-  },
   asker(asKey, ad){
     let msg, hnt, answType, answer, result;
     do {
@@ -104,7 +92,48 @@ let appData = {
     } while (true)
   },
   start(){
+    if (saylaryAmount.value.trim() === '') {
+      console.log("Неверное значение", 'saylaryAmount');
+      return;
+    }
+    appData.budget = saylaryAmount.value;
+    appData.getExpenses();
+    appData.calculateAll();
+  },
+  addExpensesBlock(){
+    let expensesItem = document.querySelector('.expenses-items');
+    let cloneExpensesItem = expensesItem.cloneNode(true);
+    expensesItem.parentNode.insertBefore(cloneExpensesItem, buttonExpensAdd);
+    let count = document.querySelectorAll(".expenses-items").length;
+        if(count > 2){
+          buttonExpensAdd.style.display = 'none';
+          return;
+        }
+  },
+  getExpenses(){
+    let formsArr = document.querySelectorAll('.expenses-items');
+    formsArr.forEach((el, ind) =>{
+        let itemExpenses = el.querySelector('.expenses-title').value
+        let amountExpenses = el.querySelector('.expenses-amount').value
+        if (itemExpenses !='' && amountExpenses !=''){
+          this.arrExpenses.set(itemExpenses, amountExpenses);
+        }
+    })
+    appData.showResult();
+  },
+  showResult(){
+    this.calculateAll();
+    budgetMonthValue.value = appData.budget;
+    budgetDayValue.value = appData.budgetDay;
+    expensesMonthValue.value = appData.expensesMonth;
+  },
+  getAddExpenses(){/* дополнительные расходы */
+    let addExpenses = additionalExpensesItem.value.split(',').trim();
+    addExpenses.forEach((item) =>{
+      if(item.trim() != ''){
 
+      }
+    })
   },
   calculateAll() {
     this.calculateExpensesMonth();
@@ -114,106 +143,15 @@ let appData = {
     this.getStatusIncome;
   },
 };
-
+function init(){
+  appData.arrExpenses.forEach((el, ind)=>{
+    saylaryAmount
+  })
+}
 // ------------functions------------
 
-function output(comment = "", value = "") {
-  /* вывод единичных значений */
-  document.writeln(`${comment} ${value} <br \/>`);
-  console.log(`${comment} ${value}`);
-}
+buttonStart.addEventListener('click', appData.start);
+buttonExpensAdd.addEventListener('click', appData.addExpensesBlock);
+appData.showResult();
 
-function inputMsg(key, adds){
-    //[0:Msg, 1:[hint], 2:target type]
-  let identifikators = new Map([
-    ['mIncom' , ['Укажите размер основного дохода', 33000, 'number']],
-    ['addIncom', ['Укажите виды дополнительного дохода через запятую', ['пособия', 'субвенции'],'array']],
-    ['addIncomSize', [`Укажите размеры дополнительного дохода: "${adds}"`, 11500, 'number']],
-    ['expenses', ['Укажите виды расходов через запятую', ['коммуналка', 'еда','одежда'],'array']],
-    ['amountExpenses', [`Во сколько обойдется "${adds}"? `, [7000, 8000, 10000],'number']],
-    ['errorMsg', ['Неверные данные, попробуйте еще раз', [0,0,0],'']],
-    ['addSizeDeposit', ['Введите размер депозита, если пусто, значит отсутсвует', [1000],'number']],
-    ['addProcentDeposit', ['Введите ставку депозита', [7],'number']],
-  ])
-  return identifikators.get(key);
-}
-function start2Validation(data, type){/* только проверка введеных данных */
-  let processData = data.trim();
-  let check = false;
-  switch(type){
-    case 'string':
-        (processData === data) && (processData!= '')? (check = true): null;
-      break;
-    case 'number':
-        check = (!isNaN(processData)) && (!isNaN(parseFloat(data)));
-      break;
-    case 'array':
-      let arr = processData.split(',');
-      let clearArr = arr.map((el)=>{
-        return el.trim();
-      });
-      let tmpCheck = (clearArr.reduce((result, current, index)=>{
-        result = true;
-        return result = start2Validation(current, 'string') && result ;
-          }
-        )
-      )
-      check = tmpCheck && clearArr instanceof Array;
-      break;
-  }
-
-  return check;
-}
-
-start.addEventListener('click', appData.start);
-
-
-appData.budget = appData.asker('mIncom');
-let addIncom = appData.asker('addIncom'); /* ввод категорий дополнильных доходов */
-
-addIncom.forEach((el, index)=>{           /* ввод размеров дополнительных доходов */
-  appData.income.set(el, appData.asker("addIncomSize", addIncom[index]));
-})
-
-appData.deposiSize = appData.asker("addSizeDeposit"); /* ввод данных депозита */
-if (appData.deposiSize > 0) {
-  appData.depositProcent = appData.asker("addProcentDeposit");
-}
-
-let expenses = appData.asker('expenses');
-expenses.forEach((elm, index) =>{
-  appData.arrCategoryAndExpenses.set(elm, appData.asker('amountExpenses', expenses[index]));
-})
-appData.getBudget();
-appData.calculateAll();
-
-
-const value = (object) => {
-  let str = "";
-  Object.keys(object).map((el) => {
-    let type = typeof object[el];
-    if (object[el] == "") {
-      return;
-    }
-    if (type == "function") {
-      output(`ключ ${el} -  `, `метод`);
-    } else {
-      output(`ключ ${el} имеет значение ${object[el]}`);
-    }
-  });
-  // return str;
-};
-output("Наша программа включает в себя данные:", "");
-output("", value(appData));
-output("Количество категорий расходов:", appData.arrCategoryAndExpenses.size);
-output(
-  "Наименование категорий расходов: ",
-  Array.from(appData.arrCategoryAndExpenses.keys()).join(", ")
-);
-output("Желаемая сумма накопления: ", appData.mission);
-output("Бюджет на месяц: ", appData.budgetMonth);
-output("Бюджет на день: ", appData.budgetDay);
-
-if (appData.targetMonth > 0) {
-  output(`Цель будет достигнута за месяцев: ${appData.targetMonth}`);
-}
+// appData.calculateAll();
