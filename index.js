@@ -5,8 +5,7 @@ let saylaryAmount = document.querySelector('.salary-amount');
 let buttonIncomPlus = document.querySelectorAll("button")[0];
 let buttonExpensAdd = document.querySelectorAll("button")[1];
 let depositCheck = document.querySelector("#deposit-check");
-let additionalIncomeItem0 = document.querySelectorAll(".additional_income-item")[0];
-let additionalIncomeItem1 = document.querySelectorAll(".additional_income-item")[1];
+let additionalIncomeItem = document.querySelectorAll(".additional_income-item");
 let budgetMonthValue = document.querySelector(".budget_month-value");
 let budgetDayValue = document.querySelector(".budget_day-value");
 let expensesMonthValue = document.querySelector(".expenses_month-value");
@@ -19,7 +18,7 @@ let additionalExpensesItem = document.querySelector(".additional_expenses-item")
 
 let appData = {
   budget: 0 /* Месячный доход */,
-  income: new Map() /* дополнительный доход ( вид дохода : размер доход )*/,
+  addIncome: [] /* дополнительный доход ( вид дохода : размер доход )*/,
   arrExpenses: new Map([
     ["одежда", 2345],
     ["еда", 5432],
@@ -102,7 +101,13 @@ let appData = {
     appData.budget = saylaryAmount.value;
     appData.getExpenses();
     appData.getAddExpenses();
-    appData.calculateAll();
+    appData.getAddIncome();
+    
+    appData.calculateExpensesMonth();
+    appData.getBudget();
+    appData.calculateBudgetDay();
+    appData.calculateTargetMonth();
+    appData.getStatusIncome();
   },
   addExpensesBlock() {
     let expensesItem = document.querySelector(".expenses-items");
@@ -153,15 +158,16 @@ let appData = {
     return result;
   },
   getAddIncome(){
-    
+    additionalIncomeItem.forEach((el) =>{
+      let itemValue = item.value.trim();
+        if(itemValue !== ''){
+          appData.addIncome.push(itemValue);
+        }
+    })
   },
 
   calculateAll() {
-    this.calculateExpensesMonth();
-    this.getBudget();
-    this.calculateBudgetDay();
-    this.calculateTargetMonth();
-    this.getStatusIncome;
+
   },
 };
 function init(){
