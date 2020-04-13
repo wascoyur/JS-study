@@ -11,7 +11,7 @@ let budgetMonthValue = document.querySelector(".budget_month-value");
 let budgetDayValue = document.querySelector(".budget_day-value");
 let expensesMonthValue = document.querySelector(".expenses_month-value");
 let additionalIncomeValue = document.querySelector(".additional_income-value");
-let resultTotalAdditionalExpensesValue = document.querySelector(".additional_expenses-value");
+let additionalExpensesValue = document.querySelector(".additional_expenses-value");
 let resultTotalIncomePeriodValue = document.querySelector(".income_period-value");
 let resultTotalTargetMonthValue = document.querySelector(".target_month-value");
 let periodSelect = document.querySelector(".period-select");
@@ -19,9 +19,9 @@ let additionalExpensesItem = document.querySelector(".additional_expenses-item")
 
 let appData = {
   budget: 0,/* Месячный доход */
-  income: new Map() ,              /* дополнительный доход ( вид дохода : размер доход )*/
+  addIncome: [] ,              /* дополнительный доход ( вид дохода : размер доход )*/
   arrExpenses: new Map([["одежда", 2345],[ "еда",5432], ["коммуналка",3765]]) /* категории расходов с суммами */,
-  addExpenses: new Map(),
+  addExpenses: [],
   perid: 0,
   period: 8,
   targetMonth: 0 /* за какой период будет достигнута цель */,
@@ -98,7 +98,9 @@ let appData = {
     }
     appData.budget = saylaryAmount.value;
     appData.getExpenses();
+    appData.getAddExpenses();
     appData.calculateAll();
+    appData.showResult();
   },
   addExpensesBlock(){
     let expensesItem = document.querySelector('.expenses-items');
@@ -122,16 +124,17 @@ let appData = {
     appData.showResult();
   },
   showResult(){
-    this.calculateAll();
+    // this.calculateAll();
     budgetMonthValue.value = appData.budget;
     budgetDayValue.value = appData.budgetDay;
     expensesMonthValue.value = appData.expensesMonth;
+    additionalExpensesValue.value = appData.addExpenses.join(', ');
   },
   getAddExpenses(){/* дополнительные расходы */
-    let addExpenses = additionalExpensesItem.value.split(',').trim();
-    addExpenses.forEach((item) =>{
+    let formExpenses = additionalExpensesItem.value.split(",");
+    formExpenses.forEach((item) =>{
       if(item.trim() != ''){
-
+        appData.addExpenses.push(item);
       }
     })
   },
