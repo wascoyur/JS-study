@@ -5,8 +5,7 @@ let saylaryAmount = document.querySelector('.salary-amount');
 let buttonIncomPlus = document.querySelectorAll("button")[0];
 let buttonExpensAdd = document.querySelectorAll("button")[1];
 let depositCheck = document.querySelector("#deposit-check");
-let additionalIncomeItem0 = document.querySelectorAll(".additional_income-item")[0];
-let additionalIncomeItem1 = document.querySelectorAll(".additional_income-item")[1];
+let additionalIncomeItem = document.querySelectorAll(".additional_income-item");
 let budgetMonthValue = document.querySelector(".budget_month-value");
 let budgetDayValue = document.querySelector(".budget_day-value");
 let expensesMonthValue = document.querySelector(".expenses_month-value");
@@ -99,6 +98,7 @@ let appData = {
     appData.budget = saylaryAmount.value;
     appData.getExpenses();
     appData.getAddExpenses();
+    appData.getAddincome();
     appData.calculateAll();
     appData.showResult();
   },
@@ -129,12 +129,21 @@ let appData = {
     budgetDayValue.value = appData.budgetDay;
     expensesMonthValue.value = appData.expensesMonth;
     additionalExpensesValue.value = appData.addExpenses.join(', ');
+    additionalIncomeValue.value = appData.addIncome.join(', ')
   },
   getAddExpenses(){/* дополнительные расходы */
     let formExpenses = additionalExpensesItem.value.split(",");
     formExpenses.forEach((item) =>{
       if(item.trim() != ''){
         appData.addExpenses.push(item);
+      }
+    })
+  },
+  getAddincome(){
+    additionalIncomeItem.forEach((el) =>{
+      let itemValue = el.value.trim();
+      if (itemValue != '') {
+        appData.addIncome.push(itemValue);
       }
     })
   },
