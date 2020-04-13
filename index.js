@@ -12,15 +12,16 @@ let expensesMonthValue = document.querySelector(".expenses_month-value");
 let additionalIncomeValue = document.querySelector(".additional_income-value");
 let additionalExpensesValue = document.querySelector(".additional_expenses-value");
 let resultTotalIncomePeriodValue = document.querySelector(".income_period-value");
-let resultTotalTargetMonthValue = document.querySelector(".target_month-value");
+let targetMonthValue = document.querySelector(".target_month-value");
 let periodSelect = document.querySelector(".period-select");
 let additionalExpensesItem = document.querySelector(".additional_expenses-item");
+let targetAmount = document.querySelector('.target-amount');
 
 let appData = {
   budget: 0,/* Месячный доход */
-  addIncome: [] ,              /* дополнительный доход ( вид дохода : размер доход )*/
+  addIncome: ['такси', 'фриланс'] ,              /* дополнительный доход ( вид дохода : размер доход )*/
   arrExpenses: new Map([["одежда", 2345],[ "еда",5432], ["коммуналка",3765]]) /* категории расходов с суммами */,
-  addExpenses: [],
+  addExpenses: ['штрафы', 'пени'],
   perid: 0,
   period: 8,
   targetMonth: 0 /* за какой период будет достигнута цель */,
@@ -51,19 +52,19 @@ let appData = {
     appData.expensesMonth = result;
     return result;
   },
-  calculateTargetMonth() {
+  getTargetMonth() {
     /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
     this.getBudget();
-    let result = Math.ceil(this.mission / this.budgetMonth);
+    let result = Math.ceil(appData.mission/appData.budgetMonth);
     this.targetMonth = result;
   },
   getStatusIncome() {
     if (appData.budgetDay > 1200) {
-      output("У вас высокий уровень дохода");
+      console.log("У вас высокий уровень дохода");
     } else if (appData.budgetDay <= 1200 && appData.budgetDay > 600) {
-      output("У вас средний уровень дохода");
+      console.log("У вас средний уровень дохода");
     } else if (appData.budgetDay >= 0 && appData.budgetDay <= 600) {
-      output("К сожалению у вас уровень дохода ниже среднего");
+      console.log("К сожалению у вас уровень дохода ниже среднего");
     }
   },
 
@@ -99,8 +100,12 @@ let appData = {
     appData.getExpenses();
     appData.getAddExpenses();
     appData.getAddincome();
+    appData.getTargetMonth();
+    appData.calculateAll();
+    appData.mission = targetAmount.value;
     appData.calculateAll();
     appData.showResult();
+
   },
   addExpensesBlock(){
     let expensesItem = document.querySelector('.expenses-items');
@@ -124,12 +129,12 @@ let appData = {
     appData.showResult();
   },
   showResult(){
-    // this.calculateAll();
     budgetMonthValue.value = appData.budget;
     budgetDayValue.value = appData.budgetDay;
     expensesMonthValue.value = appData.expensesMonth;
     additionalExpensesValue.value = appData.addExpenses.join(', ');
-    additionalIncomeValue.value = appData.addIncome.join(', ')
+    additionalIncomeValue.value = appData.addIncome.join(', ');
+    targetMonthValue.value = appData.targetMonth;
   },
   getAddExpenses(){/* дополнительные расходы */
     let formExpenses = additionalExpensesItem.value.split(",");
@@ -148,11 +153,11 @@ let appData = {
     })
   },
   calculateAll() {
-    this.calculateExpensesMonth();
-    this.getBudget();
-    this.calculateBudgetDay();
-    this.calculateTargetMonth();
-    this.getStatusIncome;
+    appData.calculateExpensesMonth();
+    appData.getBudget();
+    appData.calculateBudgetDay();
+
+    appData.getStatusIncome();
   },
 };
 function init(){
