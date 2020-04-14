@@ -1,4 +1,3 @@
-let money = 2000;
 let buttonStart = document.querySelector("#start");
 let saylaryAmount = document.querySelector('.salary-amount');
 // let btnPlusExpensesAdd = document.querySelector(".btn_plus expenses_add");
@@ -11,22 +10,22 @@ let budgetDayValue = document.querySelector(".budget_day-value");
 let expensesMonthValue = document.querySelector(".expenses_month-value");
 let additionalIncomeValue = document.querySelector(".additional_income-value");
 let additionalExpensesValue = document.querySelector(".additional_expenses-value");
-let incomePeriodValue = document.querySelector(".income_period-value");
+
 let targetMonthValue = document.querySelector(".target_month-value");
 let periodSelect = document.querySelector(".period-select");
 let additionalExpensesItem = document.querySelector(".additional_expenses-item");
 let targetAmount = document.querySelector('.target-amount');
-let incomItems = document.querySelectorAll('.income-items')
+let incomItems = document.querySelectorAll('.income-items');
+
+let periodAmount = document.querySelector('.period-amount');
+let incomePeriodValue = document.querySelector(".income_period-value");
 
 let appData = {
   budget: 0,/* Месячный доход */
   addIncome: [],              /* дополнительный доход ( вид дохода : размер доход )*/
-  arrExpenses: new Map([["одежда", 2345],[ "еда",5432], ["коммуналка",3765]]) /* категории расходов с суммами */,
-  addExpenses: ['штрафы', 'пени'],
-  perid: 0,
-  period: 8,
+  arrExpenses: new Map() /* категории расходов с суммами */,
+  addExpenses: [],
   targetMonth: 0 /* за какой период будет достигнута цель */,
-  mission: 50000 /* цель накопления */,
   budgetDay: 0,
   budgetMonth: 0 /* бюджет на месяц (свободные деньги) */,
   expensesMonth: 0 /* суммарые расходы на месяц */,
@@ -37,11 +36,11 @@ let appData = {
 
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
-    this.budgetMonth = this.budget + this.incomeMonth - this.calculateExpensesMonth();
+    appData.budgetMonth = appData.incomeMonth + appData.budget - appData.expensesMonth;
   },
   calculateBudgetDay() {
-    this.getBudget();
-    this.budgetDay = Math.floor(this.budgetMonth / 30);
+
+    appData.budgetDay = Math.floor(appData.budgetMonth/ 30);
   },
 
   calculateExpensesMonth() {
@@ -51,13 +50,12 @@ let appData = {
       result += Number(value);
     });
     appData.expensesMonth = result;
-    return result;
   },
   getTargetMonth() {
     /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
-    this.getBudget();
-    let result = Math.ceil(appData.mission/appData.budgetMonth);
-    this.targetMonth = result;
+    appData.getBudget();
+    let result = Math.ceil(targetAmount.value/appData.budgetMonth);
+    appData.targetMonth = result;
   },
   getStatusIncome() {
     if (appData.budgetDay > 1200) {
@@ -81,9 +79,9 @@ let appData = {
     appData.getTargetMonth();
     appData.calculateAll();
     appData.mission = targetAmount.value;
-    appData.calculateAll();
-    appData.getIncome();
 
+    appData.getIncome();
+    appData.calculateAll();
     appData.showResult();
   },
   addExpensesBlock(){
@@ -122,11 +120,12 @@ let appData = {
       let itemIncome = el.querySelector(".income-title").value.trim();
       let amountIncome = el.querySelector(".income-amount").value.trim();
       if(itemIncome !='' && amountIncome !=''){
-        this.addIncome.set(itemIncome, amountIncome);
+        this.addIncome.push(amountIncome);
+        this.incomeMonth += +amountIncome;
       }
     })
     //TODO appData.incomeMonth += appData.income[key]
-    
+
   },
   showResult(){
     budgetMonthValue.value = appData.budget;
@@ -134,7 +133,7 @@ let appData = {
     expensesMonthValue.value = appData.expensesMonth;
     additionalExpensesValue.value = appData.addExpenses.join(', ');
     additionalIncomeValue.value = appData.addIncome.join(', ');
-    targetMonthValue.value = appData.targetMonth;
+    targetMonthValue.value = Math.ceil(appData.targetMonth);
     incomePeriodValue.value = appData.calcPeriod();
   },
   getAddExpenses(){/* дополнительные расходы */
@@ -155,6 +154,7 @@ let appData = {
 
   },
   calcPeriod(){
+
     return appData.budgetMonth * periodSelect.value;
   },
   calculateAll() {
@@ -175,3 +175,7 @@ function init(){
 buttonStart.addEventListener('click', appData.start);
 buttonExpensAdd.addEventListener('click', appData.addExpensesBlock);
 buttonIncomPlus.addEventListener('click', appData.addIncomeBlock);
+periodSelect.addEventListener('input' ,() =>{
+   periodAmount.textContent = periodSelect.value;
+   appData.start()
+})
