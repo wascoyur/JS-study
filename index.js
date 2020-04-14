@@ -20,7 +20,7 @@ let incomItems = document.querySelectorAll('.income-items')
 
 let appData = {
   budget: 0,/* Месячный доход */
-  addIncome: ['такси', 'фриланс'] ,              /* дополнительный доход ( вид дохода : размер доход )*/
+  addIncome: [],              /* дополнительный доход ( вид дохода : размер доход )*/
   arrExpenses: new Map([["одежда", 2345],[ "еда",5432], ["коммуналка",3765]]) /* категории расходов с суммами */,
   addExpenses: ['штрафы', 'пени'],
   perid: 0,
@@ -33,7 +33,7 @@ let appData = {
   depositProcent: 0,/* ставка депозита */
   deposiSize : 0, /* размер депозита */
   persentOfDeposut: 7,
-  incomeMonth: 0,
+  incomeMonth: 0, /* дополнительный доход */
 
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
@@ -69,29 +69,6 @@ let appData = {
     }
   },
 
-  asker(asKey, ad){
-    let msg, hnt, answType, answer, result;
-    do {
-      msg = inputMsg(asKey, ad)[0];
-      hnt = inputMsg(asKey)[1];
-      answType = inputMsg(asKey)[2];
-      answer = prompt(msg, hnt);
-      if(start2Validation(answer, answType)){
-        result = answer.trim();
-        switch(answType){
-          case 'string':
-          break
-          case 'number':
-            result = Number(result);
-          break
-          case 'array':
-            result = result.split(',');
-          break
-        }
-        return result;
-      }
-    } while (true)
-  },
   start(){
     if (saylaryAmount.value.trim() === '') {
       console.log("Неверное значение", 'saylaryAmount');
@@ -140,8 +117,16 @@ let appData = {
      }
   },
   getIncome(){
-    //TODO собрать данные из форм income-items
+    let formsArr = document.querySelectorAll('.income-items');
+    formsArr.forEach((el)=>{
+      let itemIncome = el.querySelector(".income-title").value.trim();
+      let amountIncome = el.querySelector(".income-amount").value.trim();
+      if(itemIncome !='' && amountIncome !=''){
+        this.addIncome.set(itemIncome, amountIncome);
+      }
+    })
     //TODO appData.incomeMonth += appData.income[key]
+    
   },
   showResult(){
     budgetMonthValue.value = appData.budget;

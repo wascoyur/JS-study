@@ -1,4 +1,4 @@
-1) Переписать метод getIncome аналогично getExpenses
++ 1) Переписать метод getIncome аналогично getExpenses
 + 2) Создать метод addIncomeBlock аналогичный addExpensesBlock
 3) Округлить вывод дневного бюджета
 4) Число под полоской (input type range) должно меняться в зависимости от позиции range, используем событие input.
