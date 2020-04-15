@@ -6,21 +6,15 @@ books[4].after(books[3]);
 document.body.style.backgroundImage = "url('./image/adv.jpg')";
 let adv = document.querySelector('.adv');
 adv.remove();
+update();
+console.log();
+let itemChapt = books[1].querySelectorAll('li')
+itemChapt[3].after(itemChapt[6]);
+itemChapt[6].after(itemChapt[8]);
+itemChapt[7].after(itemChapt[2]);
 
-books.forEach((el, i) =>{
-    let parent = el.querySelector('a');
-    let nodeArr = Array.from(el.querySelector('a'));
-    console.log('nodeArr: ', nodeArr);
-    let item = el.querySelector('h2 a')/* .innerHTML */;
-    if (nodeArr.length ()){
-        // el.innerHTML = 'Книга 3. this и Прототипы Объектов';
-        let ul = item.toString()
 
-        item.replaceWith('Пропопипы', 'Прототипы');
-    }
-})
-
-// Array.from(listBook).forEach((el) => {
-
-//     console.dir(el.textContent.);
-// })
+function update(){
+    listBook = document.querySelectorAll(".books");
+    books = document.querySelectorAll(".book");
+}
