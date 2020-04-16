@@ -68,21 +68,22 @@ let appData = {
   },
 
   start(){
+    bind(appData);
     if (saylaryAmount.value.trim() === '') {
       console.log("Неверное значение", 'saylaryAmount');
       return;
     }
-    this.budget = saylaryAmount.value;
-    appData.getExpenses;
-    this.getAddExpenses();
-    this.getAddincome();
-    this.getTargetMonth();
-    this.calculateAll();
-    this.mission = targetAmount.value;
+    appData.budget = saylaryAmount.value;
+    appData.getExpenses();
+    appData.getAddExpenses();
+    appData.getAddincome();
+    appData.getTargetMonth();
+    appData.calculateAll();
+    appData.mission = targetAmount.value;
 
-    this.getIncome();
-    this.calculateAll();
-    this.showResult();
+    appData.getIncome();
+    appData.calculateAll();
+    appData.showResult();
   },
   addExpensesBlock(){
     let expensesItem = document.querySelector('.expenses-items');
@@ -177,5 +178,5 @@ buttonExpensAdd.addEventListener('click', appData.addExpensesBlock);
 buttonIncomPlus.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input' ,() =>{
    periodAmount.textContent = periodSelect.value;
-   start.apply(appData);
+   appData.start();
 });
