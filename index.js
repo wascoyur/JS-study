@@ -72,17 +72,17 @@ let appData = {
       console.log("Неверное значение", 'saylaryAmount');
       return;
     }
-    appData.budget = saylaryAmount.value;
-    appData.getExpenses();
-    appData.getAddExpenses();
-    appData.getAddincome();
-    appData.getTargetMonth();
-    appData.calculateAll();
-    appData.mission = targetAmount.value;
+    this.budget = saylaryAmount.value;
+    appData.getExpenses;
+    this.getAddExpenses();
+    this.getAddincome();
+    this.getTargetMonth();
+    this.calculateAll();
+    this.mission = targetAmount.value;
 
-    appData.getIncome();
-    appData.calculateAll();
-    appData.showResult();
+    this.getIncome();
+    this.calculateAll();
+    this.showResult();
   },
   addExpensesBlock(){
     let expensesItem = document.querySelector('.expenses-items');
@@ -177,5 +177,5 @@ buttonExpensAdd.addEventListener('click', appData.addExpensesBlock);
 buttonIncomPlus.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input' ,() =>{
    periodAmount.textContent = periodSelect.value;
-   appData.start()
-})
+   start.apply(appData);
+});
