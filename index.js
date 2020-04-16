@@ -36,33 +36,33 @@ let appData = {
 
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
-    appData.budgetMonth = appData.incomeMonth + appData.budget - appData.expensesMonth;
+    this.budgetMonth = this.incomeMonth + this.budget - this.expensesMonth;
   },
   calculateBudgetDay() {
 
-    appData.budgetDay = Math.floor(appData.budgetMonth/ 30);
+    this.budgetDay = Math.floor(this.budgetMonth/ 30);
   },
 
   calculateExpensesMonth() {
     /* считает сумму всех обязательных расходов за месяц */
     result = 0;
-    appData.arrExpenses.forEach((value, key) => {
+    this.arrExpenses.forEach((value, key) => {
       result += Number(value);
     });
-    appData.expensesMonth = result;
+    this.expensesMonth = result;
   },
   getTargetMonth() {
     /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
-    appData.getBudget();
-    let result = Math.ceil(targetAmount.value/appData.budgetMonth);
-    appData.targetMonth = result;
+    this.getBudget();
+    let result = Math.ceil(targetAmount.value/this.budgetMonth);
+    this.targetMonth = result;
   },
   getStatusIncome() {
-    if (appData.budgetDay > 1200) {
+    if (this.budgetDay > 1200) {
       console.log("У вас высокий уровень дохода");
-    } else if (appData.budgetDay <= 1200 && appData.budgetDay > 600) {
+    } else if (this.budgetDay <= 1200 && this.budgetDay > 600) {
       console.log("У вас средний уровень дохода");
-    } else if (appData.budgetDay >= 0 && appData.budgetDay <= 600) {
+    } else if (this.budgetDay >= 0 && this.budgetDay <= 600) {
       console.log("К сожалению у вас уровень дохода ниже среднего");
     }
   },
@@ -73,7 +73,7 @@ let appData = {
       return;
     }
     this.budget = saylaryAmount.value;
-    this.pData.getExpenses;
+    this.getExpenses;
     this.getAddExpenses();
     this.getAddincome();
     this.getTargetMonth();
@@ -124,23 +124,23 @@ let appData = {
         this.incomeMonth += +amountIncome;
       }
     })
-    //TODO appData.incomeMonth += appData.income[key]
+    //TODO this.incomeMonth += this.income[key]
 
   },
   showResult(){
-    budgetMonthValue.value = appData.budget;
-    budgetDayValue.value = appData.budgetDay;
-    expensesMonthValue.value = appData.expensesMonth;
-    additionalExpensesValue.value = appData.addExpenses.join(', ');
-    additionalIncomeValue.value = appData.addIncome.join(', ');
-    targetMonthValue.value = Math.ceil(appData.targetMonth);
-    incomePeriodValue.value = appData.calcPeriod();
+    budgetMonthValue.value = this.budget;
+    budgetDayValue.value = this.budgetDay;
+    expensesMonthValue.value = this.expensesMonth;
+    additionalExpensesValue.value = this.addExpenses.join(', ');
+    additionalIncomeValue.value = this.addIncome.join(', ');
+    targetMonthValue.value = Math.ceil(this.targetMonth);
+    incomePeriodValue.value = this.calcPeriod();
   },
   getAddExpenses(){/* дополнительные расходы */
     let formExpenses = additionalExpensesItem.value.split(",");
     formExpenses.forEach((item) =>{
       if(item.trim() != ''){
-        appData.addExpenses.push(item);
+        this.addExpenses.push(item);
       }
     })
   },
@@ -148,25 +148,25 @@ let appData = {
     additionalIncomeItem.forEach((el) =>{
       let itemValue = el.value.trim();
       if (itemValue != '') {
-        appData.addIncome.push(itemValue);
+        this.addIncome.push(itemValue);
       }
     })
 
   },
   calcPeriod(){
 
-    return appData.budgetMonth * periodSelect.value;
+    return this.budgetMonth * periodSelect.value;
   },
   calculateAll() {
-    appData.calculateExpensesMonth();
-    appData.getBudget();
-    appData.calculateBudgetDay();
+    this.calculateExpensesMonth();
+    this.getBudget();
+    this.calculateBudgetDay();
 
-    appData.getStatusIncome();
+    this.getStatusIncome();
   },
 };
 function init(){
-  appData.arrExpenses.forEach((el, ind)=>{
+  this.arrExpenses.forEach((el, ind)=>{
     saylaryAmount
   })
 }
@@ -177,5 +177,5 @@ buttonExpensAdd.addEventListener('click', appData.addExpensesBlock);
 buttonIncomPlus.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input' ,() =>{
    periodAmount.textContent = periodSelect.value;
-   start.apply(appData);
+   appData.start.bind(appData);
 });
