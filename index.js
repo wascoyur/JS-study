@@ -73,7 +73,7 @@ let appData = {
       return;
     }
     this.budget = saylaryAmount.value;
-    appData.getExpenses;
+    this.pData.getExpenses;
     this.getAddExpenses();
     this.getAddincome();
     this.getTargetMonth();
@@ -172,7 +172,7 @@ function init(){
 }
 // ------------functions------------
 
-buttonStart.addEventListener('click', appData.start);
+buttonStart.addEventListener('click', appData.start.bind(appData));
 buttonExpensAdd.addEventListener('click', appData.addExpensesBlock);
 buttonIncomPlus.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input' ,() =>{
