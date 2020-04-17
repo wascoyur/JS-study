@@ -28,7 +28,12 @@ const render = function(){
             '<button class="todo-remove"></button>' +
             '<button class="todo-complete"></button>' +
           '</div>';
-        todoList.append(li);
+          if (item.completed) {
+              todoCompleted.append(li);
+          }else{
+             todoList.append(li);
+          }
+
     })
 };
 
