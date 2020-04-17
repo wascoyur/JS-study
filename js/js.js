@@ -15,10 +15,20 @@ const todoData = [
 ];
 
 const render = function(){
+    todoList.textContent = '';
+    todoCompleted.textContent = '';
     todoData.forEach(function(item){
         const li = document.createElement('li');
         li.classList.add('todo-item');
-        li.innerHTML = '<span class="text-todo">'+ item.value + '</span>';
+        li.innerHTML =
+          '<span class="text-todo">' +
+          item.value +
+          "</span>" +
+          '<div class="todo-buttons">' +
+            '<button class="todo-remove"></button>' +
+            '<button class="todo-complete"></button>' +
+          '</div>';
+        todoList.append(li);
     })
 };
 
@@ -26,9 +36,9 @@ todoControl.addEventListener('submit', function(event){
     event.preventDefault();
 
     const newTodo = {
-      value: "сварить кофе",
+      value: headerInput.value,
       completed: false,
     };
     todoData.push(newTodo);
+    render();
 } )
-render();
