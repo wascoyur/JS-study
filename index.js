@@ -36,7 +36,7 @@ let appData = {
 
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
-    this.budgetMonth = this.incomeMonth + this.budget - this.expensesMonth;
+    this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth;
   },
   calculateBudgetDay() {
 
@@ -73,14 +73,12 @@ let appData = {
       return;
     }
     this.budget = saylaryAmount.value;
-    this.getExpenses;
+    this.getExpenses();
     this.getAddExpenses();
     this.getAddincome();
-    this.getTargetMonth();
-    this.calculateAll();
-    this.mission = targetAmount.value;
-
     this.getIncome();
+    this.mission = targetAmount.value;
+    this.getTargetMonth();
     this.calculateAll();
     this.showResult();
   },
@@ -120,7 +118,7 @@ let appData = {
       let itemIncome = el.querySelector(".income-title").value.trim();
       let amountIncome = el.querySelector(".income-amount").value.trim();
       if(itemIncome !='' && amountIncome !=''){
-        this.addIncome.push(amountIncome);
+        this.addIncome.push(itemIncome);
         this.incomeMonth += +amountIncome;
       }
     })
