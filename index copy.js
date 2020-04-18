@@ -21,8 +21,49 @@ let periodAmount = document.querySelector('.period-amount');
 let incomePeriodValue = document.querySelector(".income_period-value");
 
 const AppData = function(){
+  this.budget = 0;/* Месячный доход */
+  this.addIncome = [];              /* дополнительный доход ( вид дохода  = размер доход )*/
+  this.arrExpenses = new Map() /* категории расходов с суммами */;
+  this.addExpenses = [];
+  this.targetMonth = 0 /* за какой период будет достигнута цель */;
+  this.budgetDay = 0;
+  this.budgetMonth = 0 /* бюджет на месяц (свободные деньги) */;
+  this.expensesMonth = 0 /* суммарые расходы на месяц */;
+  this.depositProcent = 0;/* ставка депозита */
+  this.deposiSize  = 0; /* размер депозита */
+  this.persentOfDeposut = 7;
+  this.incomeMonth = 0; /* дополнительный доход */
+};
 
+AppData.prototype.getBudget = function(){
+  /* вычисление Накопления за месяц (Доходы минус расходы) */
+    this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth;
+};
+AppData.prototype.start = function(){
+  if (saylaryAmount.value.trim() === "") {
+    console.log("Неверное значение", "saylaryAmount");
+    return;
+  }
+  let allInput = document.querySelectorAll('.data input[type = text]');
+  allInput.forEach((item) =>{
+    item.setAttribute('disabled','disabled');
+  })
+  buttonExpensAdd.setAttribute('disabled', 'true');
+  buttonIncomPlus.setAttribute("disabled", "true");
+  buttonStart.getElementsByClassName.display = 'none';
+  // buttonCencel.getElementsByClassName.display = 'none';
+
+  this.budget = saylaryAmount.value;
+  this.getExpenses();
+  this.getAddExpenses();
+  this.getAddincome();
+  this.getIncome();
+  this.mission = targetAmount.value;
+  this.getTargetMonth();
+  this.calculateAll();
+  this.showResult();
 }
+
 
 function init(){
   this.arrExpenses.forEach((el, ind)=>{
