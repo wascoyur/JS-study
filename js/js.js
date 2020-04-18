@@ -5,11 +5,30 @@ let todoList = document.querySelector('.todo-list');/* дела  */
 let todoCompleted = document.querySelector('.todo-completed');/* выполненные дела  */
 const todoData = [
     {
-        value:'сварить кофе',
+        value: 'one',
         completed: false
     },
     {
-        value:'помыть посуду',
+        value: 'two',
+        completed: false
+    },
+    {
+        value: 'three',
+        completed: false
+    }
+    ,
+    {
+        value: 'qwe',
+        completed: false
+    }
+    ,
+    {
+        value: 'гоне',
+        completed: false
+    }
+    ,
+    {
+        value: 'жюбоо',
         completed: false
     }
 ];
@@ -17,7 +36,7 @@ const todoData = [
 const render = function(){
     todoList.textContent = '';
     todoCompleted.textContent = '';
-    todoData.forEach(function(item){
+    todoData.forEach(function(item, index){
         const li = document.createElement('li');
         li.classList.add('todo-item');
         li.innerHTML =
@@ -33,17 +52,29 @@ const render = function(){
           }else{
              todoList.append(li);
           }
-
+          const btnTodoCompleted = li.querySelector('.todo-complete');
+          btnTodoCompleted.addEventListener("click", function () {
+            item.completed = !item.completed;
+            render();
+          });
+          const btnDel = li.querySelector('.todo-remove');
+          btnDel.addEventListener('click',function(ev){
+              todoData.splice(index,1);
+              console.log(todoData.length);
+              render();
+          } )
     })
 };
 
 todoControl.addEventListener('submit', function(event){
     event.preventDefault();
-
+    let inp = headerInput.value
+    if(inp.trim() === '') return;
     const newTodo = {
-      value: headerInput.value,
+      value: inp,
       completed: false,
     };
     todoData.push(newTodo);
     render();
 } )
+render();
