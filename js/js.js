@@ -34,7 +34,8 @@ let todoData = [
     // }
 ];
 function readStorage(){
-    if(localStorage.getItem('todo') ==='')return;
+    let ch = localStorage.getItem('todo');
+    if(!ch)return;
     let readD = localStorage.getItem('todo');
     readD = JSON.parse(readD);
     todoData = readD;
@@ -46,6 +47,9 @@ function setStorage() {
 const render = function(){
     todoList.textContent = '';
     todoCompleted.textContent = '';
+    if (todoData.length == 0) {
+        return;
+    }
     todoData.forEach(function(item, index){
         const li = document.createElement('li');
         li.classList.add('todo-item');
