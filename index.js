@@ -37,20 +37,10 @@ let appData = {
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
     this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth;
-  },
-  calculateBudgetDay() {
-
     this.budgetDay = Math.floor(this.budgetMonth/ 30);
   },
 
-  calculateExpensesMonth() {
-    /* считает сумму всех обязательных расходов за месяц */
-    result = 0;
-    this.arrExpenses.forEach((value, key) => {
-      result += Number(value);
-    });
-    this.expensesMonth = result;
-  },
+  
   getTargetMonth() {
     /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
     this.getBudget();

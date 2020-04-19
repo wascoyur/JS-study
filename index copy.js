@@ -38,6 +38,7 @@ const AppData = function(){
 AppData.prototype.getBudget = function(){
   /* вычисление Накопления за месяц (Доходы минус расходы) */
     this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth;
+    this.budgetDay = Math.floor(this.budgetMonth / 30);
 };
 AppData.prototype.start = function(){
   if (saylaryAmount.value.trim() === "") {
@@ -48,7 +49,7 @@ AppData.prototype.start = function(){
   allInput.forEach((item) =>{
     item.setAttribute('disabled','disabled');
   })
-  buttonExpensAdd.setAttribute('disabled', 'true');
+  buttonExpensAdd.setAttribute('disabled', 'true');//TODO сделать отключение полей по старт
   buttonIncomPlus.setAttribute("disabled", "true");
   buttonStart.getElementsByClassName.display = 'none';
   // buttonCencel.getElementsByClassName.display = 'none';
@@ -63,7 +64,14 @@ AppData.prototype.start = function(){
   this.calculateAll();
   this.showResult();
 }
-
+AppData.prototype.calculateExpensesMonth = () => {
+    /* считает сумму всех обязательных расходов за месяц */
+    result = 0;
+    this.arrExpenses.forEach((value, key) => {
+      result += Number(value);
+    });
+    this.expensesMonth = result;
+  },
 
 function init(){
   this.arrExpenses.forEach((el, ind)=>{
