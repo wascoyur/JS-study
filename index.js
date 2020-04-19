@@ -34,19 +34,11 @@ let appData = {
   persentOfDeposut: 7,
   incomeMonth: 0, /* дополнительный доход */
 
+
+
+
+
   
-
-
-
-  getStatusIncome() {
-    if (this.budgetDay > 1200) {
-      console.log("У вас высокий уровень дохода");
-    } else if (this.budgetDay <= 1200 && this.budgetDay > 600) {
-      console.log("У вас средний уровень дохода");
-    } else if (this.budgetDay >= 0 && this.budgetDay <= 600) {
-      console.log("К сожалению у вас уровень дохода ниже среднего");
-    }
-  },
 
   start(){
     if (saylaryAmount.value.trim() === '') {

@@ -63,7 +63,7 @@ AppData.prototype.start = function(){
   this.getTargetMonth();
   this.calculateAll();
   this.showResult();
-}
+};
 AppData.prototype.calculateExpensesMonth = () => {
     /* считает сумму всех обязательных расходов за месяц */
     result = 0;
@@ -71,17 +71,25 @@ AppData.prototype.calculateExpensesMonth = () => {
       result += Number(value);
     });
     this.expensesMonth = result;
-  },
+  };
 AppData.prototype.getTargetMonth = ()=> {
     /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
     this.getBudget();
     let result = Math.ceil(targetAmount.value/this.budgetMonth);
     this.targetMonth = result;
-  },
+  };
+AppData.prototype.getStatusIncome = ()=> {
+    if (this.budgetDay > 1200) {
+      console.log("У вас высокий уровень дохода");
+    } else if (this.budgetDay <= 1200 && this.budgetDay > 600) {
+      console.log("У вас средний уровень дохода");
+    } else if (this.budgetDay >= 0 && this.budgetDay <= 600) {
+      console.log("К сожалению у вас уровень дохода ниже среднего");
+    }
+  };
 
 
 
-  
 function init(){
   this.arrExpenses.forEach((el, ind)=>{
     saylaryAmount
