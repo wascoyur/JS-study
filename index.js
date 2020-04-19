@@ -38,7 +38,7 @@ let appData = {
 
 
 
-  
+
 
   start(){
     if (saylaryAmount.value.trim() === '') {
@@ -55,86 +55,15 @@ let appData = {
     this.calculateAll();
     this.showResult();
   },
-  addExpensesBlock(){
-    let expensesItem = document.querySelector('.expenses-items');
-    let cloneExpensesItem = expensesItem.cloneNode(true);
-    expensesItem.parentNode.insertBefore(cloneExpensesItem, buttonExpensAdd);
-    let count = document.querySelectorAll(".expenses-items").length;
-        if(count > 2){
-          buttonExpensAdd.style.display = 'none';
-          return;
-        }
-  },
-  getExpenses(){
-    let formsArr = document.querySelectorAll('.expenses-items');
-    formsArr.forEach((el, ind) =>{
-        let itemExpenses = el.querySelector('.expenses-title').value
-        let amountExpenses = el.querySelector('.expenses-amount').value
-        if (itemExpenses !='' && amountExpenses !=''){
-          this.arrExpenses.set(itemExpenses, amountExpenses);
-        }
-    })
-  },
-  addIncomeBlock(){
-     let incomeItems = document.querySelector(".income-items");
-     let cloneincomeItem = incomeItems.cloneNode(true);
-     incomeItems.parentNode.insertBefore(cloneincomeItem, buttonIncomPlus);
-     let count = document.querySelectorAll(".income-items").length;
-     if (count > 2) {
-       buttonIncomPlus.style.display = "none";
-       return;
-     }
-  },
-  getIncome(){
-    let formsArr = document.querySelectorAll('.income-items');
-    formsArr.forEach((el)=>{
-      let itemIncome = el.querySelector(".income-title").value.trim();
-      let amountIncome = el.querySelector(".income-amount").value.trim();
-      if(itemIncome !='' && amountIncome !=''){
-        this.addIncome.push(itemIncome);
-        this.incomeMonth += +amountIncome;
-      }
-    })
-    //TODO this.incomeMonth += this.income[key]
 
-  },
-  showResult(){
-    budgetMonthValue.value = this.budget;
-    budgetDayValue.value = this.budgetDay;
-    expensesMonthValue.value = this.expensesMonth;
-    additionalExpensesValue.value = this.addExpenses.join(', ');
-    additionalIncomeValue.value = this.addIncome.join(', ');
-    targetMonthValue.value = Math.ceil(this.targetMonth);
-    incomePeriodValue.value = this.calcPeriod();
-  },
-  getAddExpenses(){/* дополнительные расходы */
-    let formExpenses = additionalExpensesItem.value.split(",");
-    formExpenses.forEach((item) =>{
-      if(item.trim() != ''){
-        this.addExpenses.push(item);
-      }
-    })
-  },
-  getAddincome(){
-    additionalIncomeItem.forEach((el) =>{
-      let itemValue = el.value.trim();
-      if (itemValue != '') {
-        this.addIncome.push(itemValue);
-      }
-    })
 
-  },
-  calcPeriod(){
-
-    return this.budgetMonth * periodSelect.value;
-  },
-  calculateAll() {
-    this.calculateExpensesMonth();
-    this.getBudget();
-    this.calculateBudgetDay();
-
-    this.getStatusIncome();
-  },
+  ,
+  ,
+  ,
+  ,
+  ,
+  ,
+  ,
 };
 function init(){
   this.arrExpenses.forEach((el, ind)=>{
