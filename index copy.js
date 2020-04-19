@@ -72,7 +72,16 @@ AppData.prototype.calculateExpensesMonth = () => {
     });
     this.expensesMonth = result;
   },
+AppData.prototype.getTargetMonth = ()=> {
+    /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
+    this.getBudget();
+    let result = Math.ceil(targetAmount.value/this.budgetMonth);
+    this.targetMonth = result;
+  },
 
+
+
+  
 function init(){
   this.arrExpenses.forEach((el, ind)=>{
     saylaryAmount

@@ -34,19 +34,10 @@ let appData = {
   persentOfDeposut: 7,
   incomeMonth: 0, /* дополнительный доход */
 
-  getBudget() {
-    /* вычисление Накопления за месяц (Доходы минус расходы) */
-    this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth;
-    this.budgetDay = Math.floor(this.budgetMonth/ 30);
-  },
-
   
-  getTargetMonth() {
-    /* Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления (accumulatedMonth) и возвращает результат  */
-    this.getBudget();
-    let result = Math.ceil(targetAmount.value/this.budgetMonth);
-    this.targetMonth = result;
-  },
+
+
+
   getStatusIncome() {
     if (this.budgetDay > 1200) {
       console.log("У вас высокий уровень дохода");
