@@ -5,6 +5,13 @@ let saylaryAmount = document.querySelector('.salary-amount');
 let buttonIncomPlus = document.querySelectorAll("button")[0];
 let buttonExpensAdd = document.querySelectorAll("button")[1];
 let depositCheck = document.querySelector("#deposit-check");
+
+let depositAmount = document.querySelector(".deposit-amount");
+let depositBank = document.querySelector('.deposit-bank');
+let depositCalc = document.querySelector('.deposit-calc');
+let depositPercent = document.querySelector(".deposit-percent");
+
+
 let additionalIncomeItem = document.querySelectorAll(".additional_income-item");
 let budgetMonthValue = document.querySelector(".budget_month-value");
 let budgetDayValue = document.querySelector(".budget_day-value");
@@ -181,9 +188,19 @@ class AppData {
     this.showResult();
   };
   depositHandler(){
-    if (depositCheck) {
+    if (depositCheck.checked) {
       console.log(depositCheck.value);
+      depositAmount.style.display = 'inline-block';
+      depositBank.style.display = "inline-block";
+      depositCalc.style.display = "inline-block";
+    }else{
+      depositAmount.style.display = "none";
+      depositBank.style.display = "none";
+      depositCalc.style.display = "none";
+      depositAmount.value = '';
+      depositBank.value = '';
     }
+
   };
   eventsListeners() {
     buttonStart.addEventListener("click", appData.start.bind(appData));
