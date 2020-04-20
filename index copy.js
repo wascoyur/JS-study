@@ -40,6 +40,8 @@ class AppData {
     this.depositProcent = 0; /* ставка депозита */
     this.deposiSize = 0; /* размер депозита */
     this.incomeMonth = 0; /* дополнительный доход */
+    this.deposit = false;
+    this.moneyDeposit = 0;
   }
 
   start() {
@@ -53,6 +55,7 @@ class AppData {
     this.getAddincome();
     this.getExpenses();
     this.getAddExpenses();
+    this.getInfoDeposit();
     this.getBudget();
     this.mission = targetAmount.value;
     this.getTargetMonth();
@@ -179,29 +182,42 @@ class AppData {
     this.deposiSize = 0;
     this.incomeMonth = 0;
     let allInput = document.querySelectorAll(".data input[type = text]");
-    allInput.forEach(function(item){
+    allInput.forEach(function (item) {
       item.removeAttribute("disabled");
-      item.setAttribute("value", '');
+      item.setAttribute("value", "");
     });
-     buttonStart.style.display = "block";
-     buttonCancel.style.display = "none";
+    buttonStart.style.display = "block";
+    buttonCancel.style.display = "none";
     this.showResult();
-  };
-  depositHandler(){
+  }
+  depositHandler() {
     if (depositCheck.checked) {
-      console.log(depositCheck.value);
-      depositAmount.style.display = 'inline-block';
+      depositAmount.style.display = "inline-block";
       depositBank.style.display = "inline-block";
       depositCalc.style.display = "inline-block";
-    }else{
+      this.deposit = true;
+      depositBank.addEventListener("change", this.changePercent);
+    } else {
       depositAmount.style.display = "none";
       depositBank.style.display = "none";
       depositCalc.style.display = "none";
-      depositAmount.value = '';
-      depositBank.value = '';
+      depositAmount.value = "";
+      depositBank.value = "";
+      this.deposit = false;
+      depositBank.removeEventListener("change", this.changePercent);
     }
-
+  }
+  getInfoDeposit() {
+    if (this.deposit) {
+      this.depositProcent = depositPercent.value;
+      this.moneyDeposit = depositAmount.value;
+    } else {
+    }
   };
+    changePercent(){
+      const selectIndex = this;
+      console.log(selectIndex);
+    };
   eventsListeners() {
     buttonStart.addEventListener("click", appData.start.bind(appData));
     buttonCancel.addEventListener("click", appData.reset.bind(this));
