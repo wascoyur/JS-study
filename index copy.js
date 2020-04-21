@@ -213,16 +213,20 @@ class AppData {
   }
   getInfoDeposit() {
     if (this.deposit) {
-      this.depositProcent = depositPercent.value;
-      if (depositProcent < 0){
-        confirm('ввете ставку')
+      this.depositProcent = Number(depositPercent.value);
+      let check = Number(this.depositProcent);
+      while (
+        this.depositProcent <= 0 ||
+        this.depositProcent > 100) {
+        console.log("ввете ставку");
+        this.depositProcent = Number(depositPercent.value);
       }
       this.moneyDeposit = depositAmount.value;
-    } else {
+    } /* else {
       alert('Выбери ставку или банк');
       return;
       this.depositProcent = "";
-    }
+    } */
   };
   changePercent(){
     const valueSelect = this.value;
