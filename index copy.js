@@ -72,7 +72,7 @@ class AppData {
   getBudget() {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
     const monthDeposit = this.moneyDeposit * this.depositProcent;
-    this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth;
+    this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.floor(this.budgetMonth / 30);
   }
   calculateExpensesMonth() {
@@ -192,7 +192,7 @@ class AppData {
       }
     })
     buttonIncomPlus.style.display = 'block';
-
+    depositCheck.removeAttribute('checked');
   }
   depositHandler() {
     if (depositCheck.checked) {
@@ -214,12 +214,9 @@ class AppData {
   getInfoDeposit() {
     if (this.deposit) {
       this.depositProcent = Number(depositPercent.value);
-      let check = Number(this.depositProcent);
-      while (
-        this.depositProcent <= 0 ||
-        this.depositProcent > 100) {
-        console.log("ввете ставку");
-        this.depositProcent = Number(depositPercent.value);
+      if (this.depositProcent <= 0 || this.depositProcent > 100) {
+        alert("Введите корректное значение в поле проценты");
+        buttonStart.disabled;
       }
       this.moneyDeposit = depositAmount.value;
     } /* else {
@@ -232,19 +229,16 @@ class AppData {
     const valueSelect = this.value;
     if(valueSelect === 'other'){
       depositPercent.style.display = 'inline-block';
-      depositPercent.value = valueSelect;
+      // if (Number(valueSelect) <= 0 || Number(valueSelect) > 100) {
+      //   alert("Введите корректное значение в поле проценты");
+      //   buttonStart.disabled;
+      // }
+      // depositPercent.value = valueSelect;
     }else{
       depositPercent.value = valueSelect * 0.01;
     }
-    console.log(valueSelect);
   };
-  checkerInput(){
-    salary-amount
-    switch (a){
-      case true:
-    }
 
-  }
   eventsListeners() {
     buttonStart.addEventListener("click", appData.start.bind(appData));
     buttonCancel.addEventListener("click", appData.reset.bind(this));
