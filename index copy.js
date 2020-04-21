@@ -73,6 +73,9 @@ class AppData {
     /* вычисление Накопления за месяц (Доходы минус расходы) */
     const monthDeposit = this.moneyDeposit * this.depositProcent;
     this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth;
+		/* вычисление Накопления за месяц (Доходы минус расходы) */
+		const monthDeposit = this.moneyDeposit * (this.depositPercent/100)
+    this.budgetMonth = +this.incomeMonth + +this.budget - this.expensesMonth +monthDeposit;
     this.budgetDay = Math.floor(this.budgetMonth / 30);
   }
   calculateExpensesMonth() {
