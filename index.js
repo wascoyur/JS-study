@@ -35,9 +35,39 @@ window.addEventListener('DOMContentLoaded',function () {
     let start = setInterval(updateClock, 1000, deadline);
   }
   countTimer("24 april 2020 22:03:00");
-
+//menu
   const toggleMenu = ()=>{
     const btnMenu = document.querySelector('.menu');
     const menu = document.querySelector('menu');
+    const closeBtn = document.querySelector('.close-btn');
+    const menuItems = menu.querySelectorAll('ul>li')
+    const handlerMenu = () =>{
+      menu.classList.toggle('active-menu')
+    }
+  btnMenu.addEventListener('click', handlerMenu);
+  closeBtn.addEventListener("click", handlerMenu);
+  menuItems.forEach((el) =>{
+    el.addEventListener("click", handlerMenu);
+  })
+  // for(let i = 0; i < menuItems.length; i++){
+  //   menuItems[i].addEventListener("click", handlerMenu);
+  //   }
   }
+  toggleMenu();
+
+  //popup
+  const  togglePopUp = () =>{
+    const popup = document.querySelector('.popup');
+    const btnPopup = document.querySelectorAll('.popup-btn');
+    const closePopup = document.querySelector('.popup-close');
+    btnPopup.forEach((el) =>{
+      el.addEventListener('click', ()=>{
+        popup.style.display = 'block';
+      })
+    })
+    closePopup.addEventListener('click', () =>{
+      popup.style.display='none';
+    })
+  }
+  togglePopUp();
 })
