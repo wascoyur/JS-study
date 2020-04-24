@@ -1,4 +1,4 @@
-// window.addEventListener('DOMContentLoaded',function () {
+window.addEventListener('DOMContentLoaded',function () {
   'use strict';
   let timerHours = document.querySelector("#timer-hours"),
           timerMinutes = document.querySelector("#timer-minutes"),
@@ -34,5 +34,10 @@
     }
     let start = setInterval(updateClock, 1000, deadline);
   }
-  countTimer("23 april 2020 22:03:00");
-// })
+  countTimer("24 april 2020 22:03:00");
+
+  const toggleMenu = ()=>{
+    const btnMenu = document.querySelector('.menu');
+    const menu = document.querySelector('menu');
+  }
+})
