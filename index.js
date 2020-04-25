@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded',function () {
     }
     let start = setInterval(updateClock, 1000, deadline);
   }
-  countTimer("24 april 2020 22:03:00");
+  countTimer("25 april 2020 22:00:00");
 //menu
   const toggleMenu = ()=>{
     const btnMenu = document.querySelector('.menu');
@@ -60,9 +60,27 @@ window.addEventListener('DOMContentLoaded',function () {
     const popup = document.querySelector('.popup');
     const btnPopup = document.querySelectorAll('.popup-btn');
     const closePopup = document.querySelector('.popup-close');
+    const poupContent = document.querySelector('.popup-content');
     btnPopup.forEach((el) =>{
       el.addEventListener('click', ()=>{
         popup.style.display = 'block';
+        if (document.documentElement.clientWidth < 768) {
+          return;
+        }
+        let posX = -100;
+        let timer = setInterval(function () {
+          if (posX===0) {
+            clearInterval(timer);
+            return;
+          }
+          draw();
+        }, 20);
+        function draw() {
+          popup.style.transform = `translateX(${posX}%)`;
+          posX+=1;
+        }
+
+
       })
     })
     closePopup.addEventListener('click', () =>{
