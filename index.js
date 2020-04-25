@@ -64,27 +64,18 @@ window.addEventListener('DOMContentLoaded',function () {
     btnPopup.forEach((el) =>{
       el.addEventListener('click', ()=>{
         popup.style.display = 'block';
-        if (document.documentElement.clientWidth < 768) {
-          return;
-        }
-        let posX = -100;
-        let timer = setInterval(function () {
-          if (posX===0) {
-            clearInterval(timer);
-            return;
-          }
-          draw();
-        }, 20);
-        function draw() {
-          popup.style.transform = `translateX(${posX}%)`;
-          posX+=1;
-        }
-
 
       })
     })
     closePopup.addEventListener('click', () =>{
       popup.style.display='none';
+    })
+    popup.addEventListener('click', (event)=>{
+      let target = event.target;
+      target = target.closest('.popup-content')
+      if(!target){
+        popup.style.display = "none";
+      }
     })
   }
   togglePopUp();
