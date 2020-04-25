@@ -112,4 +112,15 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   };
   tabs();
+
+  //slider
+  const slider =() =>{
+    const slide = document.querySelectorAll('.portfolio-item');
+    const btn = document.querySelectorAll('.portfolio-btn');
+    const dot = document.querySelectorAll('.dot');
+    const slider = document.querySelector('.portfolio-content');
+
+    
+  }
+  slider();
 });
