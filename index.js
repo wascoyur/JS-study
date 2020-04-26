@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
     let start = setInterval(updateClock, 1000, deadline);
   }
-  countTimer("25 april 2020 22:00:00");
+  countTimer("26 april 2020 22:00:00");
   //menu
   const toggleMenu = () => {
     const btnMenu = document.querySelector(".menu");
@@ -119,8 +119,33 @@ window.addEventListener("DOMContentLoaded", function () {
     const btn = document.querySelectorAll('.portfolio-btn');
     const dot = document.querySelectorAll('.dot');
     const slider = document.querySelector('.portfolio-content');
+    let currentSlide = 0;
 
-    
+    const nextSlide = (elem, index, strClass)=>{
+      elem[index].classList.add(strClass);
+    }
+    const prevSlide = (elem, index, strClass) => {
+      elem[index].classList.remove(strClass);
+    };
+
+    const autoPlaySlide = (i)=>{
+      prevSlide(slide, currentSlide, 'portfolio-item-active');
+      prevSlide(dot, currentSlide, 'dot-active');
+      currentSlide++;
+      if(currentSlide >= slide.length ){
+        currentSlide = 0
+      }
+      nextSlide(slide, currentSlide, 'portfolio-item-active');
+      nextSlide(dot, currentSlide, "dot-active");
+    }
+    const startSlide = (time)=>{
+      setInterval(autoPlaySlide, time);
+    }
+    const stopSlide = ()=>{
+
+    }
+    startSlide(1500);
   }
   slider();
+
 });
