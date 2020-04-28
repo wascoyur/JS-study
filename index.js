@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
     let start = setInterval(updateClock, 1000, deadline);
   }
-  countTimer("26 april 2020 22:00:00");
+  countTimer("28 april 2020 22:00:00");
   //menu
   const toggleMenu = () => {
     const btnMenu = document.querySelector(".menu");
@@ -139,7 +139,7 @@ window.addEventListener("DOMContentLoaded", function () {
       nextSlide(slide, currentSlide, 'portfolio-item-active');
       nextSlide(dot, currentSlide, "dot-active");
     }
-    const startSlide = (time)=>{
+    const startSlide = (time = 3000)=>{
       interval = setInterval(autoPlaySlide, time);
     }
     const stopSlide = ()=>{
@@ -174,13 +174,13 @@ window.addEventListener("DOMContentLoaded", function () {
       nextSlide(dot, currentSlide, "dot-active");
     })
 
-    slider.addEventListener('mouseenter', (event) =>{
+    slider.addEventListener('mouseover', (event) =>{
       if(event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
         stopSlide();
         console.log('stopSlide: ');
       }
     });
-    slider.addEventListener('mouseleave', (event) =>{
+    slider.addEventListener('mouseout', (event) =>{
       if(event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
         startSlide();
         console.log('startSlide: ');
