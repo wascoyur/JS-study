@@ -116,12 +116,20 @@ window.addEventListener("DOMContentLoaded", function () {
   //slider
   const slider =() =>{
     const slide = document.querySelectorAll('.portfolio-item');
-    const btn = document.querySelectorAll('.portfolio-btn');
-    const dot = document.querySelectorAll('.dot');
+    const parentOfDots = document.querySelector('.portfolio-dots');
     const slider = document.querySelector('.portfolio-content');
+
+    const dot = document.querySelectorAll('.dot');//TODO надо вставить точки до иницилизации этой строки.
+
     let currentSlide = 0;
     let interval;
 
+    const addDots = (slide)=>{
+          slide.forEach((elrm, index)=>{
+              let newDot = document.createElement('li')
+              parentOfDots.append(newDot);
+          })
+        }
     const nextSlide = (elem, index, strClass)=>{
       elem[index].classList.add(strClass);
     }
