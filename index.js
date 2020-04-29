@@ -186,17 +186,28 @@ window.addEventListener("DOMContentLoaded", function () {
     slider.addEventListener('mouseover', (event) =>{
       if(event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
         stopSlide();
-        console.log('stopSlide: ');
+        // console.log('stopSlide: ');
       }
     });
     slider.addEventListener('mouseout', (event) =>{
       if(event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
         startSlide();
-        console.log('startSlide: ');
+        // console.log('startSlide: ');
       }
     });
     startSlide(1500);
   }
   slider();
+
+  const dataSet = ()=>{
+    const images = document.querySelectorAll("img.command__photo");
+    images.forEach((elem) =>{
+      let newAttr = elem.getAttribute('data-img');
+      let t = elem.setAttribute('src', newAttr);
+      console.log(t);
+    })
+
+  }
+  dataSet();
 
 });
