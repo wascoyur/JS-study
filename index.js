@@ -201,20 +201,33 @@ window.addEventListener("DOMContentLoaded", function () {
 
   const dataSet = ()=>{
     const images = document.querySelectorAll("img.command__photo");
-    const command = document.querySelector('#command').addEventListener('mouseover',()=>{
-      images.forEach((elem) =>{
+    let oldValuePhoto;
+    const photos = document.querySelector(".command");
+    // photos.addEventListener('click',(event)=>{
+    //   console.log(event.target);
+    // })
+    photos.addEventListener('mouseover',(event)=>{
+        // event.preventDefault;
+      if (event.target.matches("img.command__photo")) {
+        oldValuePhoto = event.target;
+        oldValuePhoto = oldValuePhoto.cloneNode;
+        changer(event.target);
+        returnAtr();
+      }
+    })
+    const returnAtr =()=>{
+      oldValuePhoto.addEventListener("mouseout", (event) => {
+      console.log(oldValuePhoto.getAttribute("src"));
+      event.target.setAttribute("src", oldValuePhoto.getAttribute("src"));
+    });
+    }
+    const changer = (elem)=>{
+      // oldValuePhoto = elem.getAttribute('src')
       let newAttr = elem.getAttribute('data-img');
-      let t = elem.setAttribute('src', newAttr);
-    })
-    command.addEventListener('mouseout', ()=>{
-      
-    })
-
-    })
-
-
-
+      elem.setAttribute('src', newAttr);
+    }
   }
+
   dataSet();
 
 });
