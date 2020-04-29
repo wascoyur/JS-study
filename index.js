@@ -201,11 +201,18 @@ window.addEventListener("DOMContentLoaded", function () {
 
   const dataSet = ()=>{
     const images = document.querySelectorAll("img.command__photo");
-    images.forEach((elem) =>{
+    const command = document.querySelector('#command').addEventListener('mouseover',()=>{
+      images.forEach((elem) =>{
       let newAttr = elem.getAttribute('data-img');
       let t = elem.setAttribute('src', newAttr);
-      console.log(t);
     })
+    command.addEventListener('mouseout', ()=>{
+      
+    })
+
+    })
+
+
 
   }
   dataSet();
