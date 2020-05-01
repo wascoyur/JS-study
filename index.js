@@ -237,7 +237,31 @@ window.addEventListener("DOMContentLoaded", function () {
       elem.setAttribute('src', oldValuePhoto);
     }
   }
-
   dataSet();
 
+  const nonDigitRemove = ()=>{
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((elem) =>{
+      elem.addEventListener('input', () =>{
+        inputs.forEach((element) =>{
+        element.value = element.value.replace(/e/g, '');
+        })
+      })
+    })
+  }
+  nonDigitRemove();
+
+  const calc = (price = 100) =>{
+    const calcBlock = document.querySelector('.calc-block');
+    const calcType = document.querySelector('.calc-type');
+    const calcSquare = document.querySelector('.calc-square');
+    const calcday = document.querySelector('.calc-day');
+    const calcCount = document.querySelector('.calc-count');
+    const totalValue= document.querySelector('.total');
+    const countSum = () => {
+      let total = 0;
+      const typeValue = ''
+    }
+  }
+  calc();
 });
