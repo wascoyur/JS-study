@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
     let start = setInterval(updateClock, 1000, deadline);
   }
-  countTimer("28 april 2020 22:00:00");
+  countTimer("01 may 2020 22:00:00");
   //menu
   const toggleMenu = () => {
     const btnMenu = document.querySelector(".menu");
@@ -201,28 +201,27 @@ window.addEventListener("DOMContentLoaded", function () {
 
   const dataSet = ()=>{
     const images = document.querySelectorAll("img.command__photo");
-    let oldValuePhoto;
+    let oldValuePhoto = 's';
+    let targetObject = document.querySelector('.command');
     const photos = document.querySelector(".command");
-    // photos.addEventListener('click',(event)=>{
-    //   console.log(event.target);
-    // })
     photos.addEventListener('mouseover',(event)=>{
-        // event.preventDefault;
       if (event.target.matches("img.command__photo")) {
-        oldValuePhoto = event.target;
-        oldValuePhoto = oldValuePhoto.cloneNode;
+        oldValuePhoto = event.target.getAttribute("src");
         changer(event.target);
-        returnAtr();
       }
     })
-    const returnAtr =()=>{
-      oldValuePhoto.addEventListener("mouseout", (event) => {
-      console.log(oldValuePhoto.getAttribute("src"));
-      event.target.setAttribute("src", oldValuePhoto.getAttribute("src"));
+
+    photos.addEventListener("mouseout", (event) => {
+      console.log('out: ' + event.target);
+      if (event.target.getAttribute('src') == oldValuePhoto) {
+        console.log('oldValuePhoto: ' + oldValuePhoto);
+        event.target.setAttribute("src", oldValuePhoto);
+      }
+
     });
-    }
+
     const changer = (elem)=>{
-      // oldValuePhoto = elem.getAttribute('src')
+      oldValuePhoto = elem.getAttribute('src')
       let newAttr = elem.getAttribute('data-img');
       elem.setAttribute('src', newAttr);
     }
