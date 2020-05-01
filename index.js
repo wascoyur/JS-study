@@ -204,26 +204,37 @@ window.addEventListener("DOMContentLoaded", function () {
     let oldValuePhoto = 's';
     let targetObject = document.querySelector('.command');
     const photos = document.querySelector(".command");
+
     photos.addEventListener('mouseover',(event)=>{
-      if (event.target.matches("img.command__photo")) {
-        oldValuePhoto = event.target.getAttribute("src");
-        changer(event.target);
+      if (event.target.matches('img.command__photo')) {
+        images.forEach((elem, index) =>{
+          let attr = elem.getAttribute('src')
+          if (event.target.getAttribute('src') == attr) {
+            elem.addEventListener("mouseover", changer(elem));
+          }
+        })
       }
     })
-
-    photos.addEventListener("mouseout", (event) => {
-      console.log('out: ' + event.target);
-      if (event.target.getAttribute('src') == oldValuePhoto) {
-        console.log('oldValuePhoto: ' + oldValuePhoto);
-        event.target.setAttribute("src", oldValuePhoto);
+    photos.addEventListener('mouseout',(event)=>{
+      if (event.target.matches('img.command__photo')) {
+        images.forEach((elem) =>{
+          let attr = elem.getAttribute("src");
+          if (event.target.getAttribute("src") == attr) {
+            elem.addEventListener("mouseout", unchanger(elem));
+          }
+        })
       }
-
-    });
+    })
 
     const changer = (elem)=>{
       oldValuePhoto = elem.getAttribute('src')
       let newAttr = elem.getAttribute('data-img');
       elem.setAttribute('src', newAttr);
+    }
+    const unchanger = (elem)=>{
+      // oldValuePhoto = elem.getAttribute('src')
+      let newAttr = elem.getAttribute('data-img');
+      elem.setAttribute('src', oldValuePhoto);
     }
   }
 
