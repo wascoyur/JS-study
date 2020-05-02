@@ -248,20 +248,33 @@ window.addEventListener("DOMContentLoaded", function () {
         })
       })
     })
+    calc();
   }
   nonDigitRemove();
 
-  const calc = (price = 100) =>{
+  function calc (price = 100) {
     const calcBlock = document.querySelector('.calc-block');
     const calcType = document.querySelector('.calc-type');
     const calcSquare = document.querySelector('.calc-square');
     const calcday = document.querySelector('.calc-day');
     const calcCount = document.querySelector('.calc-count');
     const totalValue= document.querySelector('.total');
+
     const countSum = () => {
       let total = 0;
-      const typeValue = ''
+      const typeValue = calcType.options[calc.calcType.selectedIndex].value;
+      const squareValue = +calcSquare.value;
+
+      if (typeValue && squareValue) {
+        console.log(!!typeValue);
+        console.log(!!squareValue);
+        total = price * typeValue * squareValue;
+      }else{
+        total = 0
+      }
+      totalValue.textContent = total;
     }
   }
+
   calc();
 });
