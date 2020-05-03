@@ -298,9 +298,8 @@ window.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('form1');
     const statusMsg = document.createElement('div');
     statusMsg.textContent = "Тестоее сообщение ";
-    form.appendChild(statusMsg);
   }
-  sendForm();
+  // sendForm();
 
   }
 );
