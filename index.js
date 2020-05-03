@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
     let start = setInterval(updateClock, 1000, deadline);
   }
-  countTimer("01 may 2020 22:00:00");
+  countTimer("03 may 2020 22:00:00");
   //menu
   const toggleMenu = () => {
     const btnMenu = document.querySelector(".menu");
@@ -289,4 +289,5 @@ window.addEventListener("DOMContentLoaded", function () {
     }
     countSum();
   }
+
 });

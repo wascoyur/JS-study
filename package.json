@@ -1,0 +1,37 @@
+{
+  "name": "glo-course",
+  "version": "1.0.0",
+  "description": "Course",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "browser-sync": "^2.26.7"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wascoyur/JS-study.git"
+  },
+  "keywords": [
+    "js"
+  ],
+  "author": "wascoyur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wascoyur/JS-study/issues"
+  },
+  "homepage": "https://github.com/wascoyur/JS-study#readme"
+}
