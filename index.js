@@ -290,4 +290,17 @@ window.addEventListener("DOMContentLoaded", function () {
     countSum();
   }
 
-});
+  const sendForm = () => {
+    const errorMsg = 'Что-то пошло не так';
+    const loadMsg = 'Загрузка...';
+    const successMsg = 'Спасибо, мы скоро с Вами свяжемся';
+
+    const form = document.getElementById('form1');
+    const statusMsg = document.createElement('div');
+    statusMsg.textContent = "Тестоее сообщение ";
+    form.appendChild(statusMsg);
+  }
+  sendForm();
+
+  }
+);
