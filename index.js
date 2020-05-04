@@ -1,3 +1,9 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+/* eslint-disable padded-blocks */
+/* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* eslint-disable linebreak-style */
@@ -296,11 +302,57 @@ window.addEventListener('DOMContentLoaded', () => {
     const successMsg = 'Спасибо, мы скоро с Вами свяжемся';
 
     const form = document.getElementById('form1');
+    const form3 = document.getElementById('form3');
     const statusMsg = document.createElement('div');
     statusMsg.textContent = 'Тестове сообщение ';
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+      form.appendChild(statusMsg);
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () =>{
+        statusMsg.textContent = loadMsg;
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          statusMsg.textContent = successMsg;
+        } else {
+          statusMsg.textContent = errorMsg;
+        }
+      })
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'multipart/form-data');
+      const formData = new FormData(form);
+      let body = {};
+      for (let val of formData.entries()) {
+        body[val[0]] = val[0];
+      }
+      request.send(JSON.stringify(body));
+    });
+    form3.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form3.appendChild(statusMsg);
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () =>{
+        statusMsg.textContent = loadMsg;
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          statusMsg.textContent = successMsg;
+        } else {
+          statusMsg.textContent = errorMsg;
+        }
+      })
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'multipart/form-data');
+      const formData = new FormData(form);
+      let body = {};
+      for (let val of formData.entries()) {
+        body[val[0]] = val[0];
+      }
+      request.send(JSON.stringify(body));
     });
   };
   sendForm();
