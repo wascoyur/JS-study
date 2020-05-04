@@ -1,3 +1,7 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable quotes */
+/* eslint-disable quote-props */
+/* eslint-disable indent */
 
 /*
  |--------------------------------------------------------------------------
@@ -14,9 +18,9 @@
  */
 module.exports = {
     "ui": {
-        "port": 81
+        "port": 8080
     },
-    "files": ["./*.*"],
+    "files": ["./*.js","./js/*.*", "./css/*.*"],
     "watchEvents": [
         "change"
     ],
@@ -28,7 +32,7 @@ module.exports = {
     },
     "server": false,
     "proxy": "http://glo-course:81",
-    "port": 81,
+    "port": 82,
     "middleware": false,
     "serveStatic": [],
     "ghostMode": {
