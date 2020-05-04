@@ -218,7 +218,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if (event.target.matches('img.command__photo')) {
         images.forEach((elem) => {
           const attr = elem.getAttribute('src');
-          if (event.target.getAttribute('src') == attr) {
+          if (event.target.getAttribute('src') === attr) {
             elem.addEventListener('mouseover', changer(elem));
           }
         });
@@ -228,7 +228,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if (event.target.matches('img.command__photo')) {
         images.forEach((elem) => {
           const attr = elem.getAttribute('src');
-          if (event.target.getAttribute('src') == attr) {
+          if (event.target.getAttribute('src') === attr) {
             elem.addEventListener('mouseout', unchanger(elem));
           }
         });
@@ -322,13 +322,14 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       })
       request.open('POST', './server.php');
-      request.setRequestHeader('Content-Type', 'multipart/form-data');
+      request.setRequestHeader('Content-Type', 'application/json');
       const formData = new FormData(form);
       let body = {};
       for (let val of formData.entries()) {
         body[val[0]] = val[0];
       }
       request.send(JSON.stringify(body));
+      form.reset();
     });
     form3.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -344,7 +345,9 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
           statusMsg.textContent = errorMsg;
         }
-      })
+        form3.reset();
+      });
+
       request.open('POST', './server.php');
       request.setRequestHeader('Content-Type', 'multipart/form-data');
       const formData = new FormData(form);
@@ -354,6 +357,9 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       request.send(JSON.stringify(body));
     });
+    const postData =()=>{
+
+          }
   };
   sendForm();
 });
