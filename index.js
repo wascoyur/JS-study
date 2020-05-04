@@ -309,6 +309,15 @@ window.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       form.appendChild(statusMsg);
+      const formData = new FormData(form);
+      let body = {};
+      for (let val of formData.entries()) {
+        body[val[0]] = val[0];
+      }
+      postData(body)
+      form.reset();
+    });
+    const postData = (req) => {
       const request = new XMLHttpRequest();
       request.addEventListener('readystatechange', () =>{
         statusMsg.textContent = loadMsg;
