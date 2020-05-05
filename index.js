@@ -246,17 +246,18 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   dataSet();
 
-  const nonDigitRemove = () => {
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach((elem) => {
+  const nonDigitRemove = (inp = document.querySelectorAll('input')) => {
+    // const inp = document.querySelectorAll("input");
+    inp.forEach((elem) => {
       elem.addEventListener('input', () => {
-        inputs.forEach((element) => {
+        inp.forEach((element) => {
           element.value = element.value.replace(/e/g, '');
           calc();
         });
       });
     });
   };
+
   nonDigitRemove();
 
   function calc(price = 100) {
@@ -312,14 +313,21 @@ window.addEventListener('DOMContentLoaded', () => {
       const formData = new FormData(form);
       let body = {};
       for (let val of formData.entries()) {
-        body[val[0]] = val[0];
+        body[val[0]] = val[1];
       }
-      postData(body)
+      postData(body, () => {
+        statusMsg.textContent = successMsg;
+      },
+      (error) => {
+        statusMsg.textContent = errorMsg;
+        console.error(error);
+      });
       form.reset();
     });
+
     const postData = (req) => {
       const request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', () =>{
+      request.addEventListener('readystatechange', () => {
         statusMsg.textContent = loadMsg;
         if (request.readyState !== 4) {
           return;
@@ -329,46 +337,39 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
           statusMsg.textContent = errorMsg;
         }
-      })
+      });
       request.open('POST', './server.php');
       request.setRequestHeader('Content-Type', 'application/json');
-      const formData = new FormData(form);
-      let body = {};
-      for (let val of formData.entries()) {
-        body[val[0]] = val[0];
-      }
-      request.send(JSON.stringify(body));
-      form.reset();
-    });
+      request.send(JSON.stringify(req));
+    };
     form3.addEventListener('submit', (event) => {
       event.preventDefault();
       form3.appendChild(statusMsg);
-      const request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', () =>{
-        statusMsg.textContent = loadMsg;
-        if (request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200) {
-          statusMsg.textContent = successMsg;
-        } else {
-          statusMsg.textContent = errorMsg;
-        }
-        form3.reset();
-      });
-
-      request.open('POST', './server.php');
-      request.setRequestHeader('Content-Type', 'multipart/form-data');
-      const formData = new FormData(form);
+      const formData = new FormData(form3);
       let body = {};
       for (let val of formData.entries()) {
-        body[val[0]] = val[0];
+        body[val[0]] = val[1];
       }
-      request.send(JSON.stringify(body));
+      postData(
+        body,
+        () => {
+          statusMsg.textContent = successMsg;
+        },
+        (error) => {
+          statusMsg.textContent = errorMsg;
+          console.error(error);
+        }
+      );
+      form3.reset();
     });
-    const postData =()=>{
-
-          }
   };
   sendForm();
+  const phones = document.querySelectorAll('input');
+  // phones.addEventListener('input', validationTel());
+  const validationTel = (elem) => {
+    phones.forEach((elem), () => {
+      elem.setAttribute('type', 'number');
+    });
+  };
+  validationTel();
 });
