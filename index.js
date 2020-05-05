@@ -246,10 +246,17 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   dataSet();
 
+<<<<<<< HEAD
   const nonDigitRemove = (inp = document.querySelectorAll('input')) => {
     inp.forEach((elem) => {
+=======
+  const nonDigitRemove = (tag) => {
+    console.log(tag);
+    const inputs = document.querySelectorAll(tag);
+    inputs.forEach((elem) => {
+>>>>>>> b6b3d389db8b9ad88f10691ca81e36973201c50a
       elem.addEventListener('input', () => {
-        inp.forEach((element) => {
+        inputs.forEach((element) => {
           element.value = element.value.replace(/e/g, '');
           calc();
         });
@@ -257,7 +264,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  nonDigitRemove();
+  nonDigitRemove('input');
 
   function calc(price = 100) {
     const calcBlock = document.querySelector('.calc-block');
