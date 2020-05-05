@@ -247,7 +247,6 @@ window.addEventListener('DOMContentLoaded', () => {
   dataSet();
 
   const nonDigitRemove = (inp = document.querySelectorAll('input')) => {
-    // const inp = document.querySelectorAll("input");
     inp.forEach((elem) => {
       elem.addEventListener('input', () => {
         inp.forEach((element) => {
@@ -358,18 +357,21 @@ window.addEventListener('DOMContentLoaded', () => {
         (error) => {
           statusMsg.textContent = errorMsg;
           console.error(error);
-        }
+        },
       );
       form3.reset();
     });
   };
   sendForm();
-  const phones = document.querySelectorAll('input');
-  // phones.addEventListener('input', validationTel());
-  const validationTel = (elem) => {
-    phones.forEach((elem), () => {
-      elem.setAttribute('type', 'number');
+  const phones = document.querySelectorAll("input[type='tel']");
+  const validationTel = (listPhones) => {
+    listPhones.forEach((fieldTel) => {
+      fieldTel.addEventListener('input', () => {
+        console.log(fieldTel.value);
+        fieldTel.value = fieldTel.value.match(/^[0-9 ()+-]+$/g/* , '' */);
+        console.log("fieldTel.value.(/^[0-9]/g, ''): ", fieldTel.value.replace(/^[0-9]/g, ''));
+      });
     });
   };
-  validationTel();
+  validationTel(phones);
 });
