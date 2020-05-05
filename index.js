@@ -246,11 +246,12 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   dataSet();
 
-  const nonDigitRemove = (inp = document.querySelectorAll('input')) => {
-    // const inp = document.querySelectorAll("input");
-    inp.forEach((elem) => {
+  const nonDigitRemove = (tag) => {
+    console.log(tag);
+    const inputs = document.querySelectorAll(tag);
+    inputs.forEach((elem) => {
       elem.addEventListener('input', () => {
-        inp.forEach((element) => {
+        inputs.forEach((element) => {
           element.value = element.value.replace(/e/g, '');
           calc();
         });
@@ -258,7 +259,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  nonDigitRemove();
+  nonDigitRemove('input');
 
   function calc(price = 100) {
     const calcBlock = document.querySelector('.calc-block');
@@ -364,12 +365,14 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
   sendForm();
-  const phones = document.querySelectorAll('input');
-  // phones.addEventListener('input', validationTel());
-  const validationTel = (elem) => {
-    phones.forEach((elem), () => {
-      elem.setAttribute('type', 'number');
-    });
-  };
-  validationTel();
+  const phones = document.querySelectorAll("input[type='tel']");
+  // const validationTel = (list) => {
+  //   list.forEach((itemTelList) => {
+  //     itemTelList.setAttribute('type', 'number');
+  //     itemTelList.addEventListener('input', nonDigitRemove())
+  //     console.log('elem.textContent: ', list.textContent);
+  //   });
+  // };
+  // validationTel(phones);
+  nonDigitRemove("input[(type = 'tel')]");
 });
