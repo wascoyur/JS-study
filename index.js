@@ -246,15 +246,10 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   dataSet();
 
-<<<<<<< HEAD
-  const nonDigitRemove = (inp = document.querySelectorAll('input')) => {
-    inp.forEach((elem) => {
-=======
   const nonDigitRemove = (tag) => {
     console.log(tag);
     const inputs = document.querySelectorAll(tag);
     inputs.forEach((elem) => {
->>>>>>> b6b3d389db8b9ad88f10691ca81e36973201c50a
       elem.addEventListener('input', () => {
         inputs.forEach((element) => {
           element.value = element.value.replace(/e/g, '');
