@@ -21,12 +21,18 @@ const getData = (url) => {
 
 };
 const outputPhotos = (data) => {
-  const random = Math.floor(Math.random() * data.length);
-  const obj = data[random];
-  output.innerHTML = `<h4>${obj.title}</h4>
-                      <img src = "${obj.thumbnailUrl}" alt="${obj.title}">`;
+  // const random = Math.floor(Math.random() * data.length);
+  // const obj = data[random];
+  output.insertAdjacentHTML('beforebegin',
+    `<h4>${data.title}</h4>
+      <img src="${data.thumbnailUrl}" alt="${data.title}">`);
 };
 const urlPhotos = 'https://jsonplaceholder.typicode.com/photos';
-getData(urlPhotos)
+const oneImg = getData('https://jsonplaceholder.typicode.com/photos/1');
+const twoImg = getData('https://jsonplaceholder.typicode.com/photos/2');
+oneImg
   .then(outputPhotos)
-  .catch((error) => console.error(error));
+  .catch((error) => console.log(error));
+twoImg
+  .then(outputPhotos)
+  .catch((error) => console.log(error));
