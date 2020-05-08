@@ -323,7 +323,7 @@ window.addEventListener('DOMContentLoaded', () => {
       //   statusMsg.textContent = errorMsg;
       //   console.error(error);
       // });
-      postData()
+      postData(body)
         .then(statusMsg.textContent = successMsg)
         .catch((error) => {
           statusMsg.textContent = errorMsg;
@@ -362,14 +362,20 @@ window.addEventListener('DOMContentLoaded', () => {
       for (let val of formData.entries()) {
         body[val[0]] = val[1];
       }
-      postData(body,() => {
-        statusMsg.textContent = successMsg;
-      },
-      (error) => {
-        statusMsg.textContent = errorMsg;
-        console.error(error);
-      },
-      );
+      // postData(body,() => {
+      //   statusMsg.textContent = successMsg;
+      // },
+      // (error) => {
+      //   statusMsg.textContent = errorMsg;
+      //   console.error(error);
+      // },
+      // );
+      postData(body)
+        .then(statusMsg.textContent = successMsg)
+        .catch((error) => {
+          statusMsg.textContent = errorMsg;
+          console.error(error);
+        });
       form3.reset();
     });
   };
