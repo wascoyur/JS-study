@@ -317,7 +317,13 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       postData(body)
-        .then(statusMsg.textContent = successMsg)
+        .then((response) =>{
+          if (response.status !=200) {
+            throw new Error('status network not 200')
+          }
+          console.log(response);
+          statusMsg.textContent = successMsg;
+        })
         .catch((error) => {
           statusMsg.textContent = errorMsg;
           console.error(error);
@@ -326,26 +332,13 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     const postData = (req) => {
-      return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.addEventListener('readystatechange', () => {
-          statusMsg.textContent = loadMsg;
-          if (request.readyState !== 4) {
-            return;
-          }
-          if (request.status === 200) {
-            statusMsg.textContent = successMsg;
-            resolve();
-          } else {
-            statusMsg.textContent = errorMsg;
-            reject();
-          }
-        });
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-        request.send(JSON.stringify(req));
+      return fetch('./server.php', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(req)
       });
-
     };
     form3.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -355,14 +348,7 @@ window.addEventListener('DOMContentLoaded', () => {
       for (let val of formData.entries()) {
         body[val[0]] = val[1];
       }
-      // postData(body,() => {
-      //   statusMsg.textContent = successMsg;
-      // },
-      // (error) => {
-      //   statusMsg.textContent = errorMsg;
-      //   console.error(error);
-      // },
-      // );
+    
       postData(body)
         .then(statusMsg.textContent = successMsg)
         .catch((error) => {
@@ -378,7 +364,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const validationTel = (listPhones) => {
     listPhones.forEach((fieldTel) => {
       fieldTel.addEventListener('input', () => {
-        console.log(fieldTel.value);
         fieldTel.value = fieldTel.value.match(/^[0-9 ()+-]+$/g);
       });
     });
