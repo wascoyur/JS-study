@@ -310,13 +310,8 @@ window.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       form.appendChild(statusMsg);
-      const formData = new FormData(form);
-      let body = {};
-      for (let val of formData.entries()) {
-        body[val[0]] = val[1];
-      }
-
-      postData(body)
+      const formData = new FormData(form);     
+      postData(formData)
         .then((response) =>{
           if (response.status !=200) {
             throw new Error('status network not 200')
@@ -330,7 +325,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
       form.reset();
     });
-
     const postData = (req) => {
       return fetch('./server.php', {
         method: 'POST',
@@ -343,14 +337,15 @@ window.addEventListener('DOMContentLoaded', () => {
     form3.addEventListener('submit', (event) => {
       event.preventDefault();
       form3.appendChild(statusMsg);
-      const formData = new FormData(form3);
-      let body = {};
-      for (let val of formData.entries()) {
-        body[val[0]] = val[1];
-      }
-    
-      postData(body)
-        .then(statusMsg.textContent = successMsg)
+      const formData = new FormData(form3);   
+      postData(formData)
+        .then((response) =>{
+          if (response.status !=200) {
+            throw new Error('status network not 200')
+          }
+          console.log(response);
+          statusMsg.textContent = successMsg;
+        })
         .catch((error) => {
           statusMsg.textContent = errorMsg;
           console.error(error);
