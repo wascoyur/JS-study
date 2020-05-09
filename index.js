@@ -46,7 +46,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     let start = setInterval(updateClock, 1000, deadline);
   }
-  countTimer('04 may 2020 22:00:00');
+  countTimer('09 may 2020 22:00:00');
   // menu
   const toggleMenu = () => {
     const btnMenu = document.querySelector('.menu');
