@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const parentOfDots = document.querySelector('.portfolio-dots');
     const slider = document.querySelector('.portfolio-content');
     addDots(slide);
-    const dot = document.querySelectorAll('.dot');// TODO надо вставить точки до иницилизации этой строки.
+    const dot = document.querySelectorAll('.dot');
 
     let currentSlide = 0;
     let interval;
@@ -247,7 +247,6 @@ window.addEventListener('DOMContentLoaded', () => {
   dataSet();
 
   const nonDigitRemove = (tag) => {
-    console.log(tag);
     const inputs = document.querySelectorAll(tag);
     inputs.forEach((elem) => {
       elem.addEventListener('input', () => {
@@ -316,13 +315,7 @@ window.addEventListener('DOMContentLoaded', () => {
       for (let val of formData.entries()) {
         body[val[0]] = val[1];
       }
-      // postData(body, () => {
-      //   statusMsg.textContent = successMsg;
-      // },
-      // (error) => {
-      //   statusMsg.textContent = errorMsg;
-      //   console.error(error);
-      // });
+
       postData(body)
         .then(statusMsg.textContent = successMsg)
         .catch((error) => {
@@ -393,7 +386,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const validationUserName = (listUserNames) => {
     listUserNames.forEach((fieldUname) => {
       fieldUname.addEventListener('input', () => {
-        console.log(fieldUname.value);
         fieldUname.value = fieldUname.value.match(/[А-я]+$/g);
       });
     });
