@@ -20,7 +20,7 @@ module.exports = {
     "ui": {
         "port": 8080
     },
-    "files": ["./*.js","./js/*.*", "./css/*.*"],
+    "files": ["./*.js", "./js/*.*", "./css/*.*", "./test/*.js", "./distr/*.*"],
     "watchEvents": [
         "change"
     ],
