@@ -1,71 +1,9 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
-/* eslint-disable padded-blocks */
-/* eslint-disable prefer-const */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-param-reassign */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-plusplus */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-use-before-define */
-/* eslint-disable linebreak-style */
+import countTimer from './src/modules/countTimer';
+
 window.addEventListener('DOMContentLoaded', () => {
-  const timerHours = document.querySelector('#timer-hours');
-  const timerMinutes = document.querySelector('#timer-minutes');
-  const timerSeconds = document.querySelector('#timer-seconds');
-
-  function countTimer(deadline) {
-    function getTimeRemaning() {
-      const dateNow = new Date().getTime();
-      const dateStop = new Date(deadline).getTime();
-      const timeRemining = (dateStop - dateNow) / 1000;
-      let seconds = Math.floor(timeRemining % 60);
-      seconds = seconds < 10 ? `0${seconds}` : seconds;
-      let minutes = Math.floor((timeRemining / 60) % 60);
-      minutes = minutes < 10 ? `0${minutes}` : minutes;
-      let hourse = Math.floor((timeRemining / 60 / 60) % 24);
-      hourse = hourse < 10 ? `0${hourse}` : hourse;
-      return {
-        timeRemining, hourse, minutes, seconds,
-      };
-    }
-
-    function updateClock(params) {
-      const timer = getTimeRemaning(params);
-      timerHours.textContent = timer.hourse;
-      timerMinutes.textContent = timer.minutes;
-      timerSeconds.textContent = timer.seconds;
-      if (timer.timeRemining <= 0) {
-        timerHours.textContent = '00';
-        timerMinutes.textContent = '00';
-        timerSeconds.textContent = '00';
-        clearInterval(start);
-      }
-    }
-    let start = setInterval(updateClock, 1000, deadline);
-  }
-  countTimer('04 may 2020 22:00:00');
+  countTimer('11 may 2020 22:00:00');
   // menu
-  const toggleMenu = () => {
-    const btnMenu = document.querySelector('.menu');
-    const menu = document.querySelector('menu');
-    const handlerMenu = () => {
-      menu.classList.toggle('active-menu');
-    };
-    menu.addEventListener('click', (event) => {
-      let { target } = event;
-      target = target.closest('ul');
-      if (target) {
-        handlerMenu();
-        return;
-      }
-      handlerMenu();
-    });
-
-    btnMenu.addEventListener('click', handlerMenu);
-  };
+  
   toggleMenu();
 
   // popup
