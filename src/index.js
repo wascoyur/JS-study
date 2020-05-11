@@ -26,15 +26,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // slider
   sliderF();
-
-  // calc();
+  const calcBlock = document.querySelector('.calc-block');
+  const calcType = document.querySelector('.calc-type');
+  const calcSquare = document.querySelector('.calc-square');
+  const calcDay = document.querySelector('.calc-day');
+  const calcCount = document.querySelector('.calc-count');
+  const totalValue = document.querySelector('#total');
+  calc();
 
   dataSet();
 
   nonDigitRemove('input');
 
   sendForm();
-
+  const phones = document.querySelectorAll("input[type='tel']");
+  const userNames = document.querySelectorAll("input[name='user_name']");
   validationTel(phones);
   validationUserName(userNames);
 });

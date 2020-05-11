@@ -1,4 +1,4 @@
-const userNames = document.querySelectorAll("input[name='user_name']");
+// const userNames = document.querySelectorAll("input[name='user_name']");
 
 const validationUserName = (listUserNames) => {
   listUserNames.forEach((fieldUname) => {

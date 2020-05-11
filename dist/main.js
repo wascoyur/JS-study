@@ -137,7 +137,7 @@
             });
       });
     };
-    var s = () => {
+    var l = () => {
       const e = document.querySelectorAll(".portfolio-item"),
         t = document.querySelector(".portfolio-dots"),
         o = document.querySelector(".portfolio-content");
@@ -151,26 +151,26 @@
       const a = (e, t, o) => {
           e[t].classList.add(o);
         },
-        s = (e, t, o) => {
+        l = (e, t, o) => {
           e[t].classList.remove(o);
         },
-        l = (t) => {
-          s(e, c, "portfolio-item-active"),
-            s(n, c, "dot-active"),
+        s = (t) => {
+          l(e, c, "portfolio-item-active"),
+            l(n, c, "dot-active"),
             c++,
             c >= e.length && (c = 0),
             a(e, c, "portfolio-item-active"),
             a(n, c, "dot-active");
         },
-        i = (e = 3e3) => {
-          r = setInterval(l, e);
+        u = (e = 3e3) => {
+          r = setInterval(s, e);
         };
       o.addEventListener("click", (t) => {
         t.preventDefault();
         const { target: o } = t;
         o.matches(".portfolio-btn, .dot") &&
-          (s(e, c, "portfolio-item-active"),
-          s(n, c, "dot-active"),
+          (l(e, c, "portfolio-item-active"),
+          l(n, c, "dot-active"),
           o.matches(".next")
             ? (c++, c >= e.length && (c = 0))
             : o.matches(".prev")
@@ -188,11 +188,11 @@
         }),
         o.addEventListener("mouseout", (e) => {
           (e.target.matches(".portfolio-btn") || e.target.matches(".dot")) &&
-            i();
+            u();
         }),
-        i(1500);
+        u(1500);
     };
-    var l = () => {
+    var s = () => {
       const e = document.querySelectorAll("img.command__photo");
       let t = "s";
       const o = document.querySelector(".command");
@@ -221,7 +221,7 @@
           e.setAttribute("src", t);
         };
     };
-    var i = (e) => {
+    var u = (e) => {
       console.log(e);
       const t = document.querySelectorAll(e);
       t.forEach((e) => {
@@ -232,7 +232,7 @@
         });
       });
     };
-    var u = () => {
+    var i = () => {
       const e = "Что-то пошло не так",
         t = "Спасибо, мы скоро с Вами свяжемся",
         o = document.getElementById("form1"),
@@ -242,9 +242,9 @@
         o.addEventListener("submit", (n) => {
           n.preventDefault(), o.appendChild(r);
           const a = new FormData(o);
-          let s = {};
-          for (let e of a.entries()) s[e[0]] = e[1];
-          c(s)
+          let l = {};
+          for (let e of a.entries()) l[e[0]] = e[1];
+          c(l)
             .then((r.textContent = t))
             .catch((t) => {
               (r.textContent = e), console.error(t);
@@ -268,9 +268,9 @@
       n.addEventListener("submit", (o) => {
         o.preventDefault(), n.appendChild(r);
         const a = new FormData(n);
-        let s = {};
-        for (let e of a.entries()) s[e[0]] = e[1];
-        c(s)
+        let l = {};
+        for (let e of a.entries()) l[e[0]] = e[1];
+        c(l)
           .then((r.textContent = t))
           .catch((t) => {
             (r.textContent = e), console.error(t);
@@ -279,29 +279,32 @@
       });
     };
     document.querySelectorAll("input[type='tel']");
-    const d = document.querySelectorAll("input[name='user_name']");
-    var m = (e) => {
+    var d = (e) => {
       e.forEach((e) => {
         e.addEventListener("input", () => {
           console.log(e.value), (e.value = e.value.match(/^[0-9 ()+-]+$/g));
         });
       });
-      d.forEach((e) => {
+    };
+    var m = (e) => {
+      e.forEach((e) => {
         e.addEventListener("input", () => {
           console.log(e.value), (e.value = e.value.match(/[А-я]+$/g));
         });
       });
     };
     window.addEventListener("DOMContentLoaded", () => {
-      n("11 may 2020 22:00:00"),
-        r(),
-        c(),
-        a(),
-        s(),
-        l(),
-        i("input"),
-        u(),
-        m(phones);
+      n("11 may 2020 22:00:00"), r(), c(), a(), l();
+      document.querySelector(".calc-block"),
+        document.querySelector(".calc-type"),
+        document.querySelector(".calc-square"),
+        document.querySelector(".calc-day"),
+        document.querySelector(".calc-count"),
+        document.querySelector("#total");
+      s(), u("input"), i();
+      const e = document.querySelectorAll("input[type='tel']"),
+        t = document.querySelectorAll("input[name='user_name']");
+      d(e), m(t);
     });
   },
 ]);
