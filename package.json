@@ -14,9 +14,13 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "path": "^0.12.7",
+    "webpack-dev-server": "^3.11.0"
+  },
   "scripts": {
-    "watch":"webpack --watch"
+    "dev": "webpack-dev-server --open --mode=developmend",
+    "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
