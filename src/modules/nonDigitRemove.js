@@ -1,3 +1,5 @@
+import calc from './calc';
+
 const nonDigitRemove = (tag) => {
   console.log(tag);
   const inputs = document.querySelectorAll(tag);
@@ -5,7 +7,7 @@ const nonDigitRemove = (tag) => {
     elem.addEventListener('input', () => {
       inputs.forEach((element) => {
         element.value = element.value.replace(/e/g, '');
-        // calc();
+        calc();
       });
     });
   });

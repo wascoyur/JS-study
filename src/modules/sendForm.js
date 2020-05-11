@@ -12,12 +12,12 @@ const sendForm = () => {
     event.preventDefault();
     form.appendChild(statusMsg);
     const formData = new FormData(form);
-    let body = {};
-    for (let val of formData.entries()) {
-      body[val[0]] = val[1];
-    }
+    // let body = {};
+    // for (let val of formData.entries()) {
+    //   body[val[0]] = val[1];
+    // }
 
-    postData(body)
+    postData(form)
       .then(statusMsg.textContent = successMsg)
       .catch((error) => {
         statusMsg.textContent = errorMsg;
@@ -51,11 +51,11 @@ const sendForm = () => {
     event.preventDefault();
     form3.appendChild(statusMsg);
     const formData = new FormData(form3);
-    let body = {};
-    for (let val of formData.entries()) {
-      body[val[0]] = val[1];
-    }
-    postData(body)
+    // let body = {};
+    // for (let val of formData.entries()) {
+    //   body[val[0]] = val[1];
+    // }
+    postData(form3)
       .then(statusMsg.textContent = successMsg)
       .catch((error) => {
         statusMsg.textContent = errorMsg;

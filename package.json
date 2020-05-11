@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "description": "Course",
   "main": "index.js",
-  "directories": {
-    "dev": "webpack-dev-server --open --mode=development",
-    "build": "webpack --mode=production"
-  },
-  "dependencies": {
-    "browser-sync": "^2.26.7"
-  },
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
@@ -23,7 +16,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "build": "webpack"
+    "dev": "webpack-dev-server --open --mode=development",
+    "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
