@@ -4,6 +4,9 @@
   "description": "Course",
   "main": "index.js",
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-standard": "^14.1.1",
@@ -31,5 +34,16 @@
   "bugs": {
     "url": "https://github.com/wascoyur/JS-study/issues"
   },
-  "homepage": "https://github.com/wascoyur/JS-study#readme"
+  "homepage": "https://github.com/wascoyur/JS-study#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.8.7",
+    "cross-browser-polyfill": "^1.0.5",
+    "element-closest": "^3.0.2",
+    "es6-promise": "^4.2.8",
+    "formdata-polyfill": "^3.0.19",
+    "js-polyfills": "^0.1.42",
+    "mdn-polyfills": "^5.20.0",
+    "nodelist-foreach-polyfill": "^1.2.0",
+    "polyfill-library-node": "^1.0.0"
+  }
 }

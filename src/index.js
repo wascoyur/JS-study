@@ -1,3 +1,13 @@
+/* eslint-disable import/newline-after-import */
+/* eslint-disable import/first */
+// var Promise = require('es6-promise').Promise;
+import '@babel/polyfill';
+import 'nodelist-foreach-polyfill';
+import elementClosest from 'element-closest';
+elementClosest(window);
+require('formdata-polyfill');
+
+
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
 import togglePopUp from './modules/togglePopup';
@@ -10,6 +20,7 @@ import sendForm from './modules/sendForm';
 import validationTel from './modules/validationTel';
 import validationUserName from './modules/validationUserNames';
 
+// import 'cross-browser-polyfill';
 
 
 window.addEventListener('DOMContentLoaded', () => {
