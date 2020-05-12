@@ -19,6 +19,7 @@ import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 import validationTel from './modules/validationTel';
 import validationUserName from './modules/validationUserNames';
+import validationMsg from './modules/validationMsg';
 
 // import 'cross-browser-polyfill';
 
@@ -37,12 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // slider
   sliderF();
-  // const calcBlock = document.querySelector('.calc-block');
-  // const calcType = document.querySelector('.calc-type');
-  // const calcSquare = document.querySelector('.calc-square');
-  // const calcDay = document.querySelector('.calc-day');
-  // const calcCount = document.querySelector('.calc-count');
-  // const totalValue = document.querySelector('#total');
+
   calc();
 
   dataSet();
@@ -52,6 +48,8 @@ window.addEventListener('DOMContentLoaded', () => {
   sendForm();
   const phones = document.querySelectorAll("input[type='tel']");
   const userNames = document.querySelectorAll("input[name='user_name']");
+  const message = document.querySelector('#form2-message');
   validationTel(phones);
   validationUserName(userNames);
+  validationMsg(message);
 });
