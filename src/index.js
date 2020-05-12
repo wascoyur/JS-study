@@ -24,7 +24,7 @@ import validationUserName from './modules/validationUserNames';
 
 
 window.addEventListener('DOMContentLoaded', () => {
-  countTimer('11 may 2020 22:00:00');
+  countTimer('12 may 2020 22:00:00');
 
   // menu
   toggleMenu();
