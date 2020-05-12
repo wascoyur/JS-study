@@ -6,7 +6,7 @@ const nonDigitRemove = (tag) => {
   inputs.forEach((elem) => {
     elem.addEventListener('input', () => {
       inputs.forEach((element) => {
-        element.value = element.value.replace(/e/g, '');
+        // element.value = element.value.replace(/e/g, '');
         calc();
       });
     });

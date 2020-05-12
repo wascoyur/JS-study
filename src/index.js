@@ -37,12 +37,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // slider
   sliderF();
-  const calcBlock = document.querySelector('.calc-block');
-  const calcType = document.querySelector('.calc-type');
-  const calcSquare = document.querySelector('.calc-square');
-  const calcDay = document.querySelector('.calc-day');
-  const calcCount = document.querySelector('.calc-count');
-  const totalValue = document.querySelector('#total');
+  // const calcBlock = document.querySelector('.calc-block');
+  // const calcType = document.querySelector('.calc-type');
+  // const calcSquare = document.querySelector('.calc-square');
+  // const calcDay = document.querySelector('.calc-day');
+  // const calcCount = document.querySelector('.calc-count');
+  // const totalValue = document.querySelector('#total');
   calc();
 
   dataSet();
