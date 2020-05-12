@@ -11,42 +11,39 @@ const sendForm = () => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     form.appendChild(statusMsg);
-    const formData = new FormData(form);
-    // let body = {};
-    // for (let val of formData.entries()) {
-    //   body[val[0]] = val[1];
-    // }
-
-    postData(form)
+    const formData = new FormData();
+    // formData.status
+    console.log('formData.status: ', formData.textContent);
+    const postData = (data) => {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => {
+          statusMsg.textContent = loadMsg;
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {
+            statusMsg.textContent = successMsg;
+            resolve();
+          } else {
+            statusMsg.textContent = errorMsg;
+            reject();
+          }
+        });
+        request.open('POST', './server.php');
+        request.setRequestHeader('Content-Type', 'form/multipart');
+        request.send(JSON.stringify(data));
+      });
+    };
+    postData(formData)
       .then(statusMsg.textContent = successMsg)
       .catch((error) => {
         statusMsg.textContent = errorMsg;
         console.error(error);
       });
-    form.reset();
+    // form.reset();
   });
 
-  const postData = (req) => {
-    return new Promise((resolve, reject) => {
-      const request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', () => {
-        statusMsg.textContent = loadMsg;
-        if (request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200) {
-          statusMsg.textContent = successMsg;
-          resolve();
-        } else {
-          statusMsg.textContent = errorMsg;
-          reject();
-        }
-      });
-      request.open('POST', './server.php');
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.send(JSON.stringify(req));
-    });
-  };
   form3.addEventListener('submit', (event) => {
     event.preventDefault();
     form3.appendChild(statusMsg);
@@ -55,7 +52,28 @@ const sendForm = () => {
     // for (let val of formData.entries()) {
     //   body[val[0]] = val[1];
     // }
-    postData(form3)
+    const postData = (req) => {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => {
+          statusMsg.textContent = loadMsg;
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {
+            statusMsg.textContent = successMsg;
+            resolve();
+          } else {
+            statusMsg.textContent = errorMsg;
+            reject();
+          }
+        });
+        request.open('POST', './server.php');
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(req));
+      });
+    };
+    postData(formData)
       .then(statusMsg.textContent = successMsg)
       .catch((error) => {
         statusMsg.textContent = errorMsg;
