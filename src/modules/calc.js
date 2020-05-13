@@ -26,12 +26,15 @@ function calc(price = 100) {
     }
 
     if (typeValue && squareValue) {
-      total = price * typeValue * squareValue * countValue * dayValue;
+      total = price * typeValue * squareValue * countValue * dayValue ;
     } else {
       total = 0;
     }
     totalValue.textContent = Math.round(total);
   };
+  calcType.addEventListener('click', () => {
+    countSum();
+  });
   countSum();
 }
 export default calc;
