@@ -20,7 +20,7 @@ const sendForm = () => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     form.appendChild(statusMsg);
-    const formData = new FormData();
+    const formData = new FormData(form);
     // formData.status
     console.log('formData.status: ', formData.textContent);
     const postData = (data) => {
