@@ -25,7 +25,7 @@ import validationMsg from './modules/validationMsg';
 
 
 window.addEventListener('DOMContentLoaded', () => {
-  countTimer('12 may 2020 22:00:00');
+  countTimer('13 may 2020 23:00:00');
 
   // menu
   toggleMenu();
