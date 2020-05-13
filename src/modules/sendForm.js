@@ -6,7 +6,16 @@ const sendForm = () => {
   const form = document.getElementById('form1');
   const form3 = document.getElementById('form3');
   const statusMsg = document.createElement('div');
+  statusMsg.classList.add('status-message');
   statusMsg.textContent = 'Тестове сообщение ';
+
+  const removeStatusMessage = () => {
+    const status = document.querySelector('.status-message');
+    if (!status) return;
+    setTimeout(() => {
+      status.remove();
+    }, 5000);
+  };
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -47,6 +56,8 @@ const sendForm = () => {
   form3.addEventListener('submit', (event) => {
     event.preventDefault();
     form3.appendChild(statusMsg);
+    statusMsg.style.cssText = `font-size: 2rem;
+            color: #fff; `;
     const formData = new FormData(form3);
     // let body = {};
     // for (let val of formData.entries()) {
@@ -71,6 +82,7 @@ const sendForm = () => {
         request.open('POST', './server.php');
         request.setRequestHeader('Content-Type', 'application/json');
         request.send(JSON.stringify(req));
+        removeStatusMessage();
       });
     };
     postData(formData)
@@ -80,6 +92,7 @@ const sendForm = () => {
         console.error(error);
       });
     form3.reset();
+    removeStatusMessage();
   });
 };
 export default sendForm;
