@@ -1,7 +1,6 @@
 import calc from './calc';
 
 const nonDigitRemove = (tag) => {
-  console.log(tag);
   const inputs = document.querySelectorAll(tag);
   inputs.forEach((elem) => {
     elem.addEventListener('input', () => {
